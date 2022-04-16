@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context=".CreateProfile">
+    tools:context=".archive.CreateProfile">
 
     <TextView
         android:layout_width="match_parent"

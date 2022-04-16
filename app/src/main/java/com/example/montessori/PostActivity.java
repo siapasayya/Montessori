@@ -1,9 +1,5 @@
 package com.example.montessori;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,15 +12,25 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.example.montessori.model.PostMember;
+import com.example.montessori.util.Constants;
+import com.example.montessori.util.DateTimeFormat;
+import com.example.montessori.util.ReferenceConstant;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
@@ -36,33 +42,33 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class PostActivity extends AppCompatActivity {
-
-    ImageView imageView;
+    private ImageView imageView;
     private Uri selectedUri;
     private static final int PICK_FILE = 1;
-    UploadTask uploadTask;
-    EditText etdesc;
-    VideoView videoView;
-    Button BtnChoose, BtnUpload;
-    String name,url;
+    private UploadTask uploadTask;
+    private EditText etdesc;
+    private VideoView videoView;
+    private Button BtnChoose, BtnUpload;
+    private ProgressBar progressBar;
+    private ConstraintLayout container;
+    String name, url;
     StorageReference storageReference;
+    FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference db1,db2,db3;
+    //DatabaseReference imageDatabase, videoDatabase, allDatabase;
+    CollectionReference imageDatabase, videoDatabase, allDatabase;
 
     MediaController mediaController;
     String type;
 
-    Postmember postmember;
-
-
-
+    PostMember post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        postmember = new Postmember();
+        post = new PostMember();
         mediaController = new MediaController(this);
 
         imageView = findViewById(R.id.img_post);
@@ -70,17 +76,22 @@ public class PostActivity extends AppCompatActivity {
         BtnChoose = findViewById(R.id.btn_choose_post);
         BtnUpload = findViewById(R.id.btn_uploadfile_post);
         etdesc = findViewById(R.id.et_desc_post);
+        progressBar = findViewById(R.id.progressBar);
+        container = findViewById(R.id.container);
 
-
-        storageReference = FirebaseStorage.getInstance().getReference("User Posts");
+        storageReference = FirebaseStorage.getInstance().getReference(ReferenceConstant.USER_POSTS);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String currentuid = user.getUid();
+        String currentUid = user.getUid();
 
-        db1 = database.getReference("All Images").child(currentuid);
-        db2 = database.getReference("All Videos").child(currentuid);
-        db3 = database.getReference("All Post");
-        
+        imageDatabase = firestore.collection(ReferenceConstant.ALL_IMAGES);
+        videoDatabase = firestore.collection(ReferenceConstant.ALL_VIDEOS);
+        allDatabase = firestore.collection(ReferenceConstant.ALL_POSTS);
+
+        /*imageDatabase = database.getReference(ReferenceConstant.ALL_IMAGES).child(currentUid);
+        videoDatabase = database.getReference(ReferenceConstant.ALL_VIDEOS).child(currentUid);
+        allDatabase = database.getReference(ReferenceConstant.ALL_POSTS);*/
+
         BtnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,9 +105,6 @@ public class PostActivity extends AppCompatActivity {
                 chooseImage();
             }
         });
-
-
-
     }
 
     private void chooseImage() {
@@ -110,29 +118,27 @@ public class PostActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_FILE || requestCode == RESULT_OK ||
-
-        data != null || data.getData() != null) {
+        if (requestCode == PICK_FILE || requestCode == RESULT_OK || data != null || data.getData() != null) {
             selectedUri = data.getData();
             if (selectedUri.toString().contains("images")) {
                 Picasso.get().load(selectedUri).into(imageView);
                 imageView.setVisibility(View.VISIBLE);
                 videoView.setVisibility(View.INVISIBLE);
-                type = "iv";
-            }else if (selectedUri.toString().contains("video")) {
+                type = Constants.IMAGE_TYPE;
+            } else if (selectedUri.toString().contains("video")) {
                 videoView.setMediaController(mediaController);
                 videoView.setVisibility(View.VISIBLE);
                 imageView.setVisibility(View.INVISIBLE);
                 videoView.setVideoURI(selectedUri);
                 videoView.start();
-                type = "vv";
-            }else {
+                type = Constants.VIDEO_TYPE;
+            } else {
                 Toast.makeText(this, "No file selected", Toast.LENGTH_SHORT).show();
             }
         }
-
     }
-    private String getFileExt (Uri uri){
+
+    private String getFileExt(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType((contentResolver.getType(uri)));
@@ -144,97 +150,95 @@ public class PostActivity extends AppCompatActivity {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentuid = user.getUid();
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference documentReference = db.collection("User").document(currentuid);
+        DocumentReference documentReference = firestore.collection("User").document(currentuid);
 
         documentReference.get()
                 .addOnCompleteListener((task) -> {
                     if (task.getResult().exists()) {
                         name = task.getResult().getString("Name");
-                    }else {
+                    } else {
                         Toast.makeText(PostActivity.this, "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
 
-    void Dopost(){
+    void Dopost() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentuid = user.getUid();
 
         String desc = etdesc.getText().toString();
 
         Calendar cdate = Calendar.getInstance();
-        SimpleDateFormat currentdate = new SimpleDateFormat("dd-MMMM-yyyy");
+        SimpleDateFormat currentdate = new SimpleDateFormat(DateTimeFormat.DEFAULT_DATE_FORMAT);
         final String savedate = currentdate.format(cdate.getTime());
 
         Calendar ctime = Calendar.getInstance();
-        SimpleDateFormat currenttime = new SimpleDateFormat("HH:mm:ss");
+        SimpleDateFormat currenttime = new SimpleDateFormat(DateTimeFormat.DEFAULT_TIME_FORMAT);
         final String savetime = currenttime.format(ctime.getTime());
 
-        String time = savedate +":"+ savetime;
+        String time = savedate + ":" + savetime;
 
         if (TextUtils.isEmpty(desc) || selectedUri != null) {
-            final StorageReference reference = storageReference.child(System.currentTimeMillis()+ "." +getFileExt(selectedUri));
+            progressBar.setVisibility(View.VISIBLE);
+            container.setVisibility(View.GONE);
+
+            final StorageReference reference = storageReference.child(System.currentTimeMillis() + "." + getFileExt(selectedUri));
             uploadTask = reference.putFile(selectedUri);
+
+            post.setDesc(desc);
+            post.setName(name);
+            post.setTime(time);
+            post.setUid(currentuid);
+            // TODO: Rapikan URL.
+            post.setUrl(url);
+            post.setType(type);
 
             Task<Uri> uriTask = uploadTask.continueWithTask((task) -> {
                 if (!task.isSuccessful()) {
-                    throw  task.getException();
+                    throw task.getException();
                 }
                 return reference.getDownloadUrl();
             }).addOnCompleteListener(new OnCompleteListener<Uri>() {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
-                    if (task.isSuccessful()) {
+                    if (task.isSuccessful() & task.getResult() != null) {
                         Uri downloadUrl = task.getResult();
+                        progressBar.setVisibility(View.GONE);
+                        container.setVisibility(View.VISIBLE);
 
-                        if (type.equals("iv")){
-                            postmember.setDesc(desc);
-                            postmember.setName(name);
-                            postmember.setPostUri(downloadUrl.toString());
-                            postmember.setTime(time);
-                            postmember.setUid(currentuid);
-                            postmember.setUrl(url);
-                            postmember.setType("iv");
+                        if (type.equals(Constants.IMAGE_TYPE)) {
+                            post.setPostUri(downloadUrl.toString());
 
                             //for image
-                            String id = db1.push().getKey();
-                            db1.child(id).setValue(postmember);
+                            imageDatabase.add(post);
+                            /*String id = imageDatabase.push().getKey();
+                            imageDatabase.child(id).setValue(post);*/
                             //for both
-                            String id1 = db3.push().getKey();
-                            db3.child(id1).setValue(postmember);
+                            allDatabase.add(post);
+                            /*String id1 = allDatabase.push().getKey();
+                            allDatabase.child(id1).setValue(post);*/
 
-                            Toast.makeText(PostActivity.this, "Post Uploaded", Toast.LENGTH_SHORT).show();
-
-                        }else if (type.equals("vv")){
-                            postmember.setDesc(desc);
-                            postmember.setName(name);
-                            postmember.setPostUri(downloadUrl.toString());
-                            postmember.setTime(time);
-                            postmember.setUid(currentuid);
-                            postmember.setUrl(url);
-                            postmember.setType("vv");
+                            Toast.makeText(PostActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+                        } else if (type.equals(Constants.VIDEO_TYPE)) {
+                            post.setPostUri(downloadUrl.toString());
 
                             //for videos
-                            String id3 = db2.push().getKey();
-                            db1.child(id3).setValue(postmember);
+                            videoDatabase.add(post);
+                            /*String id3 = videoDatabase.push().getKey();
+                            videoDatabase.child(id3).setValue(post);*/
                             //for both
-                            String id4 = db3.push().getKey();
-                            db3.child(id4).setValue(postmember);
-
-                            Toast.makeText(PostActivity.this, "Post Uploaded", Toast.LENGTH_SHORT).show();
-
-                        }else {
-                            Toast.makeText(PostActivity.this, "error", Toast.LENGTH_SHORT).show();
+                            allDatabase.add(post);
+                            /*String id4 = allDatabase.push().getKey();
+                            allDatabase.child(id4).setValue(post);*/
+                            Toast.makeText(PostActivity.this, "Video Uploaded", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(PostActivity.this, "Error: Unknown Type", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }
             });
-
-
-        }else {
+        } else {
             Toast.makeText(this, "Please fill all fieald", Toast.LENGTH_SHORT).show();
         }
-
     }
 }

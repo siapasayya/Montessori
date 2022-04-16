@@ -1,4 +1,4 @@
-package com.example.montessori;
+package com.example.montessori.archive;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.example.montessori.R;
+import com.example.montessori.ui.auth.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class tes2 extends AppCompatActivity {
@@ -17,7 +19,7 @@ public class tes2 extends AppCompatActivity {
 
     public void LogoutUser(View view) {
         FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), Login.class));
+        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         finish();
     }
 }

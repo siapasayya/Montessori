@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.montessori">
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,31 +9,28 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Montessori">
         <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-        <activity
             android:name=".PostActivity"
             android:exported="false" />
         <activity
-            android:name=".CreateProfile"
+            android:name=".archive.CreateProfile"
             android:exported="false" />
         <activity
-            android:name=".UserActivity"
+            android:name=".UserDashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".tes2"
+            android:name=".archive.tes2"
             android:exported="false" />
         <activity
-            android:name=".tes"
+            android:name=".archive.tes"
             android:exported="false" />
         <activity
-            android:name=".Register"
+            android:name=".ui.auth.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".Login"
+            android:name=".ui.auth.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.auth.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -43,5 +39,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
