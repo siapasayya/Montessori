@@ -102,4 +102,17 @@ public class PostMember implements Parcelable {
         parcel.writeString(type);
         parcel.writeString(desc);
     }
+
+    @Override
+    public String toString() {
+        return "PostMember{" +
+                "name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                ", postUri='" + postUri + '\'' +
+                ", time='" + time + '\'' +
+                ", uid='" + uid + '\'' +
+                ", type='" + type + '\'' +
+                ", desc='" + desc + '\'' +
+                '}';
+    }
 }

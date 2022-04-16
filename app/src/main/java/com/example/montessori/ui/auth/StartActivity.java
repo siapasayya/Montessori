@@ -11,7 +11,7 @@ import com.example.montessori.R;
 import com.example.montessori.UserDashboardActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class HomeActivity extends AppCompatActivity {
+public class StartActivity extends AppCompatActivity {
     Button Btnlogin, Btnregister;
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -29,14 +29,14 @@ public class HomeActivity extends AppCompatActivity {
         Btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                startActivity(new Intent(StartActivity.this, LoginActivity.class));
             }
         });
 
         Btnregister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, RegisterActivity.class));
+                startActivity(new Intent(StartActivity.this, RegisterActivity.class));
             }
         });
     }
