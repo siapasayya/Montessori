@@ -2,16 +2,16 @@ package com.example.montessori.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.NonNull;
 
 public class PostMember implements Parcelable {
-    String name, url, postUri, time, uid, type, desc, pem, umur;
+    String name, postUri, time, uid, type, desc, pem, umur;
 
     public PostMember() {
     }
 
     protected PostMember(Parcel in) {
         name = in.readString();
-        url = in.readString();
         postUri = in.readString();
         time = in.readString();
         uid = in.readString();
@@ -40,14 +40,6 @@ public class PostMember implements Parcelable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
     public String getPostUri() {
@@ -114,7 +106,6 @@ public class PostMember implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(name);
-        parcel.writeString(url);
         parcel.writeString(postUri);
         parcel.writeString(time);
         parcel.writeString(uid);
@@ -125,10 +116,10 @@ public class PostMember implements Parcelable {
     }
 
     @Override
+    @NonNull
     public String toString() {
         return "PostMember{" +
                 "name='" + name + '\'' +
-                ", url='" + url + '\'' +
                 ", postUri='" + postUri + '\'' +
                 ", time='" + time + '\'' +
                 ", uid='" + uid + '\'' +

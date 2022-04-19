@@ -45,38 +45,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="left"
-                android:orientation="horizontal">
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center_vertical"
-                    android:elevation="8dp">
-
-                    <ImageView
-                        android:id="@+id/iv_cp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/ic_circle_account"
-                        android:clickable="true"
-                        android:scaleType="fitCenter" />
-
-                </androidx.cardview.widget.CardView>
-
-                <TextView
-                    android:id="@+id/user"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="8dp"
-                    android:text="Username"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/user"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:text="Username"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:id="@+id/ivPost"
