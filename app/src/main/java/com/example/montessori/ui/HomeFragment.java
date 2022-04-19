@@ -56,7 +56,7 @@ public class HomeFragment extends Fragment {
 
     private void loadData() {
         if (currentUser != null) {
-            reference.whereEqualTo(Constants.UID_FIELD, currentUser.getUid()).addSnapshotListener((value, error) -> {
+            reference.addSnapshotListener((value, error) -> {
                 if (value != null) {
                     ArrayList<PostMember> posts = new ArrayList<>();
                     for (DocumentSnapshot document : value.getDocuments()) {

@@ -44,12 +44,17 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.firebase:firebase-storage:20.0.1'
     implementation 'com.google.firebase:firebase-database:20.0.4'
+//    implementation 'de.hdodenhof:circleimageview:2.2.0'
+//    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+
+
 
     //noinspection GradleCompatible
 
     implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation 'com.github.bumptech.glide:glide:4.13.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
 //    implementation 'com.android.support:multidex:1.0.3'

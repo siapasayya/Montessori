@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class PostMember implements Parcelable {
-    String name, url, postUri, time, uid, type, desc;
+    String name, url, postUri, time, uid, type, desc, pem, umur;
 
     public PostMember() {
     }
@@ -17,6 +17,9 @@ public class PostMember implements Parcelable {
         uid = in.readString();
         type = in.readString();
         desc = in.readString();
+        pem = in.readString();
+        umur = in.readString();
+
     }
 
     public static final Creator<PostMember> CREATOR = new Creator<PostMember>() {
@@ -87,6 +90,22 @@ public class PostMember implements Parcelable {
         this.desc = desc;
     }
 
+    public String getPem() {
+        return pem;
+    }
+
+    public void setPem(String pem) {
+        this.pem = pem;
+    }
+
+    public String getUmur() {
+        return umur;
+    }
+
+    public void setUmur(String umur) {
+        this.umur = umur;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -101,6 +120,8 @@ public class PostMember implements Parcelable {
         parcel.writeString(uid);
         parcel.writeString(type);
         parcel.writeString(desc);
+        parcel.writeString(pem);
+        parcel.writeString(umur);
     }
 
     @Override
@@ -113,6 +134,8 @@ public class PostMember implements Parcelable {
                 ", uid='" + uid + '\'' +
                 ", type='" + type + '\'' +
                 ", desc='" + desc + '\'' +
+                ", type='" + pem + '\'' +
+                ", desc='" + umur + '\'' +
                 '}';
     }
 }

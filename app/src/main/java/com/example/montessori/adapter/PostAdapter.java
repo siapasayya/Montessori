@@ -2,6 +2,7 @@ package com.example.montessori.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.montessori.PostDetailActivity;
 import com.example.montessori.R;
 import com.example.montessori.model.PostMember;
+import com.example.montessori.util.IntentNameExtra;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +47,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         // Log.d("FragmentAdapter", "Data: " + list.get(position));
-        holder.bind(list.get(position));
+        PostMember data = list.get(position);
+        holder.bind(data);
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = new Intent(context, PostDetailActivity.class);
+            intent.putExtra(IntentNameExtra.POST_DATA, data);
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -55,6 +64,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView ivPost;
         private final TextView tvDesc;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

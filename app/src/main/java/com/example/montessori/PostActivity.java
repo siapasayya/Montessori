@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -29,7 +30,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -51,11 +51,10 @@ public class PostActivity extends AppCompatActivity {
     private Button BtnChoose, BtnUpload;
     private ProgressBar progressBar;
     private ConstraintLayout container;
+    private Spinner spinnerPem, SpinnerUmur;
     String name, url;
     StorageReference storageReference;
     FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    //DatabaseReference imageDatabase, videoDatabase, allDatabase;
     CollectionReference imageDatabase, videoDatabase, allDatabase;
 
     MediaController mediaController;
@@ -78,6 +77,8 @@ public class PostActivity extends AppCompatActivity {
         etdesc = findViewById(R.id.et_desc_post);
         progressBar = findViewById(R.id.progressBar);
         container = findViewById(R.id.container);
+        spinnerPem = findViewById(R.id.spinnerPem);
+        SpinnerUmur = findViewById(R.id.spinnerUmur);
 
         storageReference = FirebaseStorage.getInstance().getReference(ReferenceConstant.USER_POSTS);
 
@@ -166,6 +167,9 @@ public class PostActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String currentuid = user.getUid();
 
+        String pembelajaran = spinnerPem.getSelectedItem().toString();
+        String umur = SpinnerUmur.getSelectedItem().toString();
+
         String desc = etdesc.getText().toString();
 
         Calendar cdate = Calendar.getInstance();
@@ -192,6 +196,8 @@ public class PostActivity extends AppCompatActivity {
             // TODO: Rapikan URL.
             post.setUrl(url);
             post.setType(type);
+            post.setPem(pembelajaran);
+            post.setUmur(umur);
 
             Task<Uri> uriTask = uploadTask.continueWithTask((task) -> {
                 if (!task.isSuccessful()) {
@@ -219,6 +225,9 @@ public class PostActivity extends AppCompatActivity {
                             allDatabase.child(id1).setValue(post);*/
 
                             Toast.makeText(PostActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(PostActivity.this, UserDashboardActivity.class));
+                            finish();
+
                         } else if (type.equals(Constants.VIDEO_TYPE)) {
                             post.setPostUri(downloadUrl.toString());
 
@@ -238,7 +247,7 @@ public class PostActivity extends AppCompatActivity {
                 }
             });
         } else {
-            Toast.makeText(this, "Please fill all fieald", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Please fill all field", Toast.LENGTH_SHORT).show();
         }
     }
 }
