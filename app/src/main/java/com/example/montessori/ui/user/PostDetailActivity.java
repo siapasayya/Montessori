@@ -1,7 +1,9 @@
 package com.example.montessori.ui.user;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +17,7 @@ import com.example.montessori.model.PostMember;
 import com.example.montessori.util.IntentNameExtra;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.auth.User;
 
 public class PostDetailActivity extends AppCompatActivity {
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
@@ -24,6 +27,7 @@ public class PostDetailActivity extends AppCompatActivity {
     // private final CollectionReference reference = database.collection(ReferenceConstant.ALL_IMAGES);
     private ImageView ivPost;
     private TextView tvDesc;
+    private ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,15 @@ public class PostDetailActivity extends AppCompatActivity {
 
         ivPost = findViewById(R.id.ivPost);
         tvDesc = findViewById(R.id.tvDesc);
+        imageButton = findViewById(R.id.back);
+
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // startActivity(new Intent(PostDetailActivity.this, UserDashboardActivity.class));
+                finish();
+            }
+        });
 
         Glide.with(this).load(postData.getPostUri()).into(ivPost);
         tvDesc.setText(postData.getDesc());

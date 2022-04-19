@@ -226,7 +226,6 @@ public class PostActivity extends AppCompatActivity {
                             allDatabase.child(id1).setValue(post);*/
 
                             Toast.makeText(PostActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(PostActivity.this, UserDashboardActivity.class));
                             finish();
 
                         } else if (type.equals(Constants.VIDEO_TYPE)) {

@@ -12,28 +12,30 @@ import com.example.montessori.ui.user.UserDashboardActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class StartActivity extends AppCompatActivity {
-    Button Btnlogin, Btnregister;
+    Button btnLogin, btnRegister;
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-        Btnlogin = findViewById(R.id.btn_login);
-        Btnregister = findViewById(R.id.btn_register);
+        btnLogin = findViewById(R.id.btn_login);
+        btnRegister = findViewById(R.id.btn_register);
 
         if (auth.getCurrentUser() != null) {
+            // TODO: Nanti cek rolenya lalu arahkan ke dashboardnya masing-masing.
             startActivity(new Intent(this, UserDashboardActivity.class));
+            finish();
         }
 
-        Btnlogin.setOnClickListener(new View.OnClickListener() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(StartActivity.this, LoginActivity.class));
             }
         });
 
-        Btnregister.setOnClickListener(new View.OnClickListener() {
+        btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(StartActivity.this, RegisterActivity.class));
