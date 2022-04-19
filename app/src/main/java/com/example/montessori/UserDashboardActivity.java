@@ -6,10 +6,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.montessori.archive.ChatFragment;
 import com.example.montessori.ui.HomeFragment;
 import com.example.montessori.ui.ProfileFragment;
-import com.example.montessori.archive.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class UserDashboardActivity extends AppCompatActivity {
@@ -18,7 +16,7 @@ public class UserDashboardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user);
+        setContentView(R.layout.activity_user_dashboard);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_activity_user, new HomeFragment()).commit();
 

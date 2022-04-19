@@ -10,4 +10,5 @@
     <color name="primary_color">#0DC9BB</color>
     <color name="grey">#888888</color>
     <color name="grey_light">#F0F0F0</color>
+    <color name="negative_color">#91041c</color>
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,152 +8,115 @@
     android:orientation="vertical"
     tools:context=".ui.ProfileFragment">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginBottom="5dp"
-        app:cardBackgroundColor="@color/primary_color">
-
-        <ImageButton
-            android:id="@+id/ib_menu_f1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|center_vertical"
-            android:layout_margin="10dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_profile" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
-            android:fontFamily="@font/montserrat"
-            android:text="MY PROFILE"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <ImageButton
-            android:id="@+id/ib_edit_f1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_margin="10dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_edit" />
-
-
-    </androidx.cardview.widget.CardView>
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="110dp"
-        android:layout_marginBottom="10dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_vertical"
-            android:elevation="8dp"
-            app:cardCornerRadius="50dp"
-            app:cardElevation="10dp"
-            app:cardPreventCornerOverlap="false">
-
-            <ImageView
-                android:id="@+id/iv_cp"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/ic_circle_account"
-                android:clickable="true"
-                android:scaleType="fitCenter" />
-        </androidx.cardview.widget.CardView>
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:fontFamily="@font/montserrat"
-        android:hint="Username"
-        android:paddingStart="10dp"
-        android:paddingLeft="10dp"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="25sp" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
         android:orientation="vertical">
 
-    </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="5dp"
+            app:cardBackgroundColor="@color/primary_color">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:gravity="center"
-        android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:fontFamily="@font/montserrat"
+                android:text="PROFILE"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_follower_f1"
-            android:layout_width="wrap_content"
+            <ImageButton
+                android:id="@+id/ib_edit_f1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:layout_margin="10dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_edit" />
+
+
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:clickable="true"
-            android:drawableStart="@drawable/ic_follower"
-            android:drawableLeft="@drawable/ic_follower"
-            android:drawablePadding="5dp"
-            android:fontFamily="@font/montserrat"
-            android:padding="5dp"
-            android:text="Follower"
-            android:textColor="@color/black" />
+            android:orientation="vertical"
+            android:padding="16dp">
 
-        <TextView
-            android:id="@+id/tv_post_f1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:clickable="true"
-            android:drawableStart="@drawable/ic_post"
-            android:drawableLeft="@drawable/ic_post"
-            android:drawablePadding="5dp"
-            android:fontFamily="@font/montserrat"
-            android:padding="5dp"
-            android:text="Post"
-            android:textColor="@color/black" />
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/montserrat"
+                android:hint="Username"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="25sp" />
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_follower_f1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_follower"
+                    android:drawableLeft="@drawable/ic_follower"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:padding="5dp"
+                    android:text="Follower"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_post_f1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:clickable="true"
+                    android:drawableStart="@drawable/ic_post"
+                    android:drawableLeft="@drawable/ic_post"
+                    android:drawablePadding="5dp"
+                    android:fontFamily="@font/montserrat"
+                    android:padding="5dp"
+                    android:text="Post"
+                    android:textColor="@color/black" />
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_logout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/negative_color"
+                android:text="Logout"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtprofile" />
+        </LinearLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/btn_sendmessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/primary_color"
-        android:fontFamily="@font/montserrat"
-        android:text="Send Message"
-        android:textColor="@color/white"
-        android:textSize="15sp" />
-
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/primary_color"
-        android:text="Logout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtprofile" />
-
-</LinearLayout>
+</ScrollView>
