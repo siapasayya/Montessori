@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.montessori.R;
-import com.example.montessori.UserDashboardActivity;
+import com.example.montessori.ui.user.UserDashboardActivity;
 import com.example.montessori.archive.tes;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;

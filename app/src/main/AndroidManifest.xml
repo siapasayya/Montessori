@@ -10,16 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Montessori">
         <activity
-            android:name=".PostDetailActivity"
+            android:name=".ui.user.PostDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".PostActivity"
+            android:name=".ui.user.PostActivity"
             android:exported="false" />
         <activity
             android:name=".archive.CreateProfile"
             android:exported="false" />
         <activity
-            android:name=".UserDashboardActivity"
+            android:name=".ui.user.UserDashboardActivity"
             android:exported="false" />
         <activity
             android:name=".archive.tes2"

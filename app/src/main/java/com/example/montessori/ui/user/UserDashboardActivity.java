@@ -1,4 +1,4 @@
-package com.example.montessori;
+package com.example.montessori.ui.user;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,12 +6,13 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.example.montessori.R;
 import com.example.montessori.ui.HomeFragment;
 import com.example.montessori.ui.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class UserDashboardActivity extends AppCompatActivity {
-    BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class UserDashboardActivity extends AppCompatActivity {
 
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnItemSelectedListener(item -> {
-            Fragment fragment = null;
+            Fragment fragment;
 
             int itemId = item.getItemId();
             if (itemId == R.id.navigation_home) {

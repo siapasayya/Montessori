@@ -1,4 +1,4 @@
-package com.example.montessori;
+package com.example.montessori.ui.user;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.montessori.R;
 import com.example.montessori.model.PostMember;
 import com.example.montessori.util.IntentNameExtra;
 import com.google.firebase.auth.FirebaseAuth;

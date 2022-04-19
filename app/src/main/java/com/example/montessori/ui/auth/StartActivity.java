@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.montessori.R;
-import com.example.montessori.UserDashboardActivity;
+import com.example.montessori.ui.user.UserDashboardActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class StartActivity extends AppCompatActivity {

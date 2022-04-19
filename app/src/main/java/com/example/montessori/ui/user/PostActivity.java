@@ -1,4 +1,4 @@
-package com.example.montessori;
+package com.example.montessori.ui.user;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -22,6 +22,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.montessori.R;
 import com.example.montessori.model.PostMember;
 import com.example.montessori.util.Constants;
 import com.example.montessori.util.DateTimeFormat;
