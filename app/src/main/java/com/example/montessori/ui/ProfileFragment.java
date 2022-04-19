@@ -1,10 +1,8 @@
 package com.example.montessori.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -15,15 +13,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.montessori.Login;
+import com.example.montessori.ui.auth.LoginActivity;
 import com.example.montessori.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileFragment extends Fragment {
     private Button Btn;
@@ -41,13 +33,10 @@ public class ProfileFragment extends Fragment {
 //        return inflater.inflate(R.layout.fragment_profile, container, false);
 
         Btn = view.findViewById(R.id.button);
-        Btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent intent = new Intent(getActivity(), Login.class);
-                startActivity(intent);
-            }
+        Btn.setOnClickListener(view1 -> {
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getActivity(), LoginActivity.class);
+            startActivity(intent);
         });
 
         return view;

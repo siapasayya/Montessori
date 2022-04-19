@@ -133,19 +133,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_addst"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/primary_color"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:padding="10dp"
-        android:text="Add Stories"
-        android:textColor="@color/white"
-        android:textSize="20sp" />
-
     <Button
         android:id="@+id/btn_sendmessage"
         android:layout_width="match_parent"
