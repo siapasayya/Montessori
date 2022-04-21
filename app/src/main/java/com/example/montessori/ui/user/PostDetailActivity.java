@@ -19,10 +19,10 @@ public class PostDetailActivity extends AppCompatActivity {
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseUser currentUser = auth.getCurrentUser();
     private PostMember postData;
-    // private final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    // private final CollectionReference reference = database.collection(ReferenceConstant.ALL_IMAGES);
     private ImageView ivPost;
     private TextView tvDesc;
+    private TextView tvPem;
+    private TextView tvUmur;
     private ImageButton imageButton;
 
     @Override
@@ -38,6 +38,8 @@ public class PostDetailActivity extends AppCompatActivity {
         }
 
         ivPost = findViewById(R.id.ivPost);
+        tvPem = findViewById(R.id.tvPem);
+        tvUmur = findViewById(R.id.tvUmur);
         tvDesc = findViewById(R.id.tvDesc);
         imageButton = findViewById(R.id.back);
 
@@ -45,5 +47,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
         Glide.with(this).load(postData.getPostUri()).into(ivPost);
         tvDesc.setText(postData.getDesc());
+        tvUmur.setText(postData.getUmur());
+        tvPem.setText(postData.getPem());
     }
 }

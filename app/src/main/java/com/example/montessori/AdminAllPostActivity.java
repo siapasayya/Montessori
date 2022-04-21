@@ -1,20 +1,14 @@
-package com.example.montessori.ui;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
+package com.example.montessori;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.montessori.DetailCategoryActivity;
-import com.example.montessori.R;
+import android.os.Bundle;
+import android.view.View;
+
 import com.example.montessori.adapter.PostAdapter;
 import com.example.montessori.model.PostMember;
 import com.example.montessori.util.ReferenceConstant;
@@ -26,39 +20,37 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class AdminAllPostActivity extends AppCompatActivity {
     private RecyclerView rvPost;
     private PostAdapter adapter;
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseUser currentUser = auth.getCurrentUser();
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
     private final CollectionReference reference = database.collection(ReferenceConstant.ALL_IMAGES);
-    private ImageView life, math, language, sensorial;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_admin_all_post);
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-//        life = requireActivity().findViewById(R.id.life);
-//        life.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent =   new Intent(getActivity(), DetailCategoryActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-        rvPost = requireActivity().findViewById(R.id.rvPost);
-
-        adapter = new PostAdapter(requireContext());
-
-        rvPost.setLayoutManager(new LinearLayoutManager(requireContext()));
-        rvPost.setAdapter(adapter);
-    }
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onPostCreate(view, savedInstanceState);
+////        life = requireActivity().findViewById(R.id.life);
+////        life.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                startActivity(new Intent(HomeFragment.this, DetailCategoryActivity.class));
+////            }
+////        });
+//        rvPost = requireActivity().findViewById(R.id.rvPost);
+//
+//        adapter = new PostAdapter(requireContext());
+//
+//        rvPost.setLayoutManager(new LinearLayoutManager(requireContext()));
+//        rvPost.setAdapter(adapter);
+//    }
 
     @Override
     public void onResume() {

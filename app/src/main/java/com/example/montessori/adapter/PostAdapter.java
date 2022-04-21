@@ -62,6 +62,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView ivPost;
+        private final TextView tvPem;
+        private final TextView tvUmur;
         private final TextView tvDesc;
 
 
@@ -69,11 +71,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             super(itemView);
             ivPost = itemView.findViewById(R.id.ivPost);
             tvDesc = itemView.findViewById(R.id.tvDesc);
+            tvPem = itemView.findViewById(R.id.tvPem);
+            tvUmur = itemView.findViewById(R.id.tvUmur);
         }
 
         public void bind(PostMember item) {
             Glide.with(ivPost).load(item.getPostUri()).into(ivPost);
             tvDesc.setText(item.getDesc());
+            tvPem.setText(item.getPem());
+            tvUmur.setText(item.getUmur());
         }
     }
 }

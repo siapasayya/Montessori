@@ -13,8 +13,14 @@ import androidx.fragment.app.Fragment;
 
 import com.example.montessori.R;
 import com.example.montessori.ui.auth.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileFragment extends Fragment {
     private MaterialButton buttonLogout;
@@ -35,6 +41,33 @@ public class ProfileFragment extends Fragment {
             FirebaseAuth.getInstance().signOut();
             Intent intent = new Intent(getActivity(), LoginActivity.class);
             startActivity(intent);
+        });
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String currentid = user.getUid();
+        DocumentReference reference;
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+
+        reference = firestore.collection("User").document(currentid);
+
+        reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.getResult().exists()){
+                    String UserName = task.getResult().getString("UserName");
+                    username.setText(UserName);
+
+
+                }else {
+
+                }
+            }
         });
     }
 }
