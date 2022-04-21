@@ -1,5 +1,14 @@
 package com.example.montessori.util;
 
+
+import android.app.Activity;
+import android.content.Intent;
+
+import com.example.montessori.ui.admin.AdminDashboardActivity;
+import com.example.montessori.ui.auth.LoginActivity;
+import com.example.montessori.ui.user.UserDashboardActivity;
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -13,4 +22,19 @@ public class Helper {
         return new Locale("id", "ID");
     }
 
+    public static void openUserDashboard(Activity activity) {
+        activity.startActivity(new Intent(activity, UserDashboardActivity.class));
+        activity.finish();
+    }
+
+    public static void openAdminDashboard(Activity activity) {
+        activity.startActivity(new Intent(activity, AdminDashboardActivity.class));
+        activity.finish();
+    }
+
+    public static void doLogout(Activity activity) {
+        FirebaseAuth.getInstance().signOut();
+        activity.startActivity(new Intent(activity, LoginActivity.class));
+        activity.finish();
+    }
 }

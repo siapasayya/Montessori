@@ -1,13 +1,10 @@
 package com.example.montessori;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.view.View;
 
 import com.example.montessori.adapter.PostAdapter;
 import com.example.montessori.model.PostMember;
@@ -32,25 +29,14 @@ public class AdminAllPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_all_post);
-    }
 
-//    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onPostCreate(view, savedInstanceState);
-////        life = requireActivity().findViewById(R.id.life);
-////        life.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View view) {
-////                startActivity(new Intent(HomeFragment.this, DetailCategoryActivity.class));
-////            }
-////        });
-//        rvPost = requireActivity().findViewById(R.id.rvPost);
-//
-//        adapter = new PostAdapter(requireContext());
-//
-//        rvPost.setLayoutManager(new LinearLayoutManager(requireContext()));
-//        rvPost.setAdapter(adapter);
-//    }
+        rvPost = findViewById(R.id.rvPost);
+
+        adapter = new PostAdapter(this);
+
+        rvPost.setLayoutManager(new LinearLayoutManager(this));
+        rvPost.setAdapter(adapter);
+    }
 
     @Override
     public void onResume() {

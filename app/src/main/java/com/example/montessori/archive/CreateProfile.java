@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.montessori.R;
+import com.example.montessori.model.User;
 import com.example.montessori.ui.ProfileFragment;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -48,7 +49,7 @@ public class CreateProfile extends AppCompatActivity {
     DatabaseReference databaseReference;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     DocumentReference documentReference;
-    All_userMember member;
+    User member;
     String currentUserId;
 
 
@@ -60,7 +61,7 @@ public class CreateProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_profile);
 
-        member = new All_userMember();
+        member = new User();
         imageView = findViewById(R.id.iv_edit);
         etname = findViewById(R.id.et_name_ep);
         etusername = findViewById(R.id.et_username_ep);

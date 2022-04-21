@@ -5,5 +5,5 @@ public class ReferenceConstant {
     public static final String ALL_IMAGES = "ImagePost";
     public static final String ALL_VIDEOS = "VideoPost";
     public static final String ALL_POSTS = "AllPost";
-
+    public static final String USERS = "User";
 }
