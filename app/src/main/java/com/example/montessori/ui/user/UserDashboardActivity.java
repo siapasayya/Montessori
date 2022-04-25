@@ -19,7 +19,7 @@ public class UserDashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_dashboard);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_activity_user, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.container_user, new HomeFragment()).commit();
 
         bottomNavigationView = findViewById(R.id.nav_view);
         bottomNavigationView.setOnItemSelectedListener(item -> {
@@ -28,12 +28,12 @@ public class UserDashboardActivity extends AppCompatActivity {
             int itemId = item.getItemId();
             if (itemId == R.id.navigation_home) {
                 fragment = new HomeFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_activity_user, fragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container_user, fragment).commit();
             } else if (itemId == R.id.navigation_add) {
                 startActivity(new Intent(UserDashboardActivity.this, PostActivity.class));
             } else if (itemId == R.id.navigation_profile) {
                 fragment = new ProfileFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment_activity_user, fragment).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container_user, fragment).commit();
             }
 
             return true;

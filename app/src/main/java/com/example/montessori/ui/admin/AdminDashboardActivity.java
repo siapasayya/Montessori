@@ -6,7 +6,6 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.montessori.AdminAllPostActivity;
 import com.example.montessori.R;
 import com.example.montessori.util.Helper;
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,7 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class AdminDashboardActivity extends AppCompatActivity {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private Button btnAllPost, btnLogout;
+    private Button btnAllPost, btnLogout, btnApprove;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,9 @@ public class AdminDashboardActivity extends AppCompatActivity {
 
         btnAllPost = findViewById(R.id.btn_all_post);
         btnLogout = findViewById(R.id.btn_logout);
+        btnApprove = findViewById(R.id.btn_approve);
 
+        btnApprove.setOnClickListener(view -> startActivity(new Intent(this, AdminApproveActivity.class)));
         btnAllPost.setOnClickListener(view -> startActivity(new Intent(this, AdminAllPostActivity.class)));
         btnLogout.setOnClickListener(view1 -> Helper.doLogout(this));
     }

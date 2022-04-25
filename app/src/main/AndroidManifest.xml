@@ -10,10 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Montessori">
         <activity
-            android:name=".AdminAllPostActivity"
+            android:name=".ui.admin.AdminApproveActivity"
             android:exported="false" />
         <activity
-            android:name=".DetailCategoryActivity"
+            android:name=".ui.admin.AdminAllPostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.user.DetailCategoryActivity"
             android:exported="false" />
         <activity
             android:name=".ui.user.PostDetailActivity"

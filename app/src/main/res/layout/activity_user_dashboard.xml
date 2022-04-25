@@ -7,7 +7,7 @@
     android:theme="@style/AppTheme">
 
     <FrameLayout
-        android:id="@+id/nav_host_fragment_activity_user"
+        android:id="@+id/container_user"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/nav_view" />

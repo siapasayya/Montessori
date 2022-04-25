@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileFragment extends Fragment {
     private MaterialButton buttonLogout;
-    private TextView username;
+    private TextView username,email, Role, profile;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,13 +34,15 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         username = view.findViewById(R.id.tv_name);
+        email = view.findViewById(R.id.tv_email);
+        Role = view.findViewById(R.id.tv_role);
+//        profile = view.findViewById(R.id.tv_profile);
         buttonLogout = view.findViewById(R.id.btn_logout);
 
         buttonLogout.setOnClickListener(view1 -> {
             Helper.doLogout(requireActivity());
         });
     }
-
 
     @Override
     public void onStart() {
@@ -58,8 +60,12 @@ public class ProfileFragment extends Fragment {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.getResult().exists()) {
                     String UserName = task.getResult().getString("UserName");
+                    String UserEmail = task.getResult().getString("UserEmail");
+                    String role = task.getResult().getString("role");
                     username.setText(UserName);
-
+                    email.setText(UserEmail);
+                    Role.setText(role);
+//                    profile.setText(role);
 
                 } else {
 

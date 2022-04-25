@@ -4,6 +4,7 @@ package com.example.montessori.util;
 import android.app.Activity;
 import android.content.Intent;
 
+import com.example.montessori.ui.user.DetailCategoryActivity;
 import com.example.montessori.ui.admin.AdminDashboardActivity;
 import com.example.montessori.ui.auth.LoginActivity;
 import com.example.montessori.ui.user.UserDashboardActivity;
@@ -36,5 +37,11 @@ public class Helper {
         FirebaseAuth.getInstance().signOut();
         activity.startActivity(new Intent(activity, LoginActivity.class));
         activity.finish();
+    }
+
+    public static void Category(String category, Activity activity) {
+        Intent intent = new Intent(activity, DetailCategoryActivity.class);
+        intent.putExtra(IntentNameExtra.CATEGORY_DATA, category);
+        activity.startActivity(intent);
     }
 }

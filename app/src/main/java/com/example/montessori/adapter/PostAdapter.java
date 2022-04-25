@@ -13,9 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.montessori.ui.user.PostDetailActivity;
 import com.example.montessori.R;
 import com.example.montessori.model.PostMember;
+import com.example.montessori.ui.user.PostDetailActivity;
 import com.example.montessori.util.IntentNameExtra;
 
 import java.util.ArrayList;
@@ -81,5 +81,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvPem.setText(item.getPem());
             tvUmur.setText(item.getUmur());
         }
+
     }
 }
