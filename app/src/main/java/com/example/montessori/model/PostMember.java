@@ -2,16 +2,21 @@ package com.example.montessori.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import androidx.annotation.NonNull;
+
+import com.example.montessori.util.Helper;
+import com.google.firebase.firestore.Exclude;
 
 public class PostMember implements Parcelable {
-    String name, postUri, time, uid, type, desc, pem, umur;
+    private String id, name, username, uid, postUri, desc, pem, umur, time, type;
+    private boolean approved = false;
 
     public PostMember() {
     }
 
     protected PostMember(Parcel in) {
+        id = in.readString();
         name = in.readString();
+        username = in.readString();
         postUri = in.readString();
         time = in.readString();
         uid = in.readString();
@@ -19,7 +24,6 @@ public class PostMember implements Parcelable {
         desc = in.readString();
         pem = in.readString();
         umur = in.readString();
-
     }
 
     public static final Creator<PostMember> CREATOR = new Creator<PostMember>() {
@@ -34,12 +38,60 @@ public class PostMember implements Parcelable {
         }
     };
 
+    @Exclude
+    public boolean isDataFilled() {
+        return !Helper.isNullOrBlank(name)
+                && !Helper.isNullOrBlank(username)
+                && !Helper.isNullOrBlank(uid)
+                // Karena tautan gambar belum didapatkan apabila belum diunggah.
+                // && !Helper.isNullOrBlank(postUri)
+                && !Helper.isNullOrBlank(desc)
+                && !Helper.isNullOrBlank(pem)
+                && !Helper.isNullOrBlank(umur)
+                && !Helper.isNullOrBlank(time)
+                && !Helper.isNullOrBlank(type);
+    }
+
+    @Exclude
+    public String getFullUsername() {
+        return !Helper.isNullOrBlank(username) ? username : "Tanpa username";
+    }
+
+    @Exclude
+    public String getFullName() {
+        return !Helper.isNullOrBlank(name) ? name : "Tanpa nama";
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 
     public String getPostUri() {
@@ -105,7 +157,9 @@ public class PostMember implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
         parcel.writeString(name);
+        parcel.writeString(username);
         parcel.writeString(postUri);
         parcel.writeString(time);
         parcel.writeString(uid);
@@ -113,20 +167,5 @@ public class PostMember implements Parcelable {
         parcel.writeString(desc);
         parcel.writeString(pem);
         parcel.writeString(umur);
-    }
-
-    @Override
-    @NonNull
-    public String toString() {
-        return "PostMember{" +
-                "name='" + name + '\'' +
-                ", postUri='" + postUri + '\'' +
-                ", time='" + time + '\'' +
-                ", uid='" + uid + '\'' +
-                ", type='" + type + '\'' +
-                ", desc='" + desc + '\'' +
-                ", type='" + pem + '\'' +
-                ", desc='" + umur + '\'' +
-                '}';
     }
 }

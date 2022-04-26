@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.montessori.R;
 import com.example.montessori.model.PostMember;
 import com.example.montessori.ui.user.PostDetailActivity;
@@ -64,17 +65,26 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private final TextView tvPem;
         private final TextView tvUmur;
         private final TextView tvDesc;
+        private final TextView tvUsername;
+        private final TextView tvName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivPost = itemView.findViewById(R.id.ivPost);
+            tvUsername = itemView.findViewById(R.id.tv_username);
+            tvName = itemView.findViewById(R.id.tv_name);
             tvDesc = itemView.findViewById(R.id.tvDesc);
             tvPem = itemView.findViewById(R.id.tvPem);
             tvUmur = itemView.findViewById(R.id.tvUmur);
         }
 
         public void bind(PostMember item) {
-            Glide.with(ivPost).load(item.getPostUri()).into(ivPost);
+            Glide.with(ivPost)
+                    .applyDefaultRequestOptions(RequestOptions.centerCropTransform())
+                    .load(item.getPostUri())
+                    .into(ivPost);
+            tvUsername.setText(item.getFullUsername());
+            tvName.setText(item.getFullName());
             tvDesc.setText(item.getDesc());
             tvPem.setText(item.getPem());
             tvUmur.setText(item.getUmur());

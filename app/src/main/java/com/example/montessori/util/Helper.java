@@ -4,9 +4,9 @@ package com.example.montessori.util;
 import android.app.Activity;
 import android.content.Intent;
 
-import com.example.montessori.ui.user.DetailCategoryActivity;
 import com.example.montessori.ui.admin.AdminDashboardActivity;
 import com.example.montessori.ui.auth.LoginActivity;
+import com.example.montessori.ui.user.DetailCategoryActivity;
 import com.example.montessori.ui.user.UserDashboardActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -43,5 +43,13 @@ public class Helper {
         Intent intent = new Intent(activity, DetailCategoryActivity.class);
         intent.putExtra(IntentNameExtra.CATEGORY_DATA, category);
         activity.startActivity(intent);
+    }
+
+    public static boolean isNullOrBlank(String text) {
+        return text == null || text.isEmpty();
+    }
+
+    public static String generateId(String username) {
+        return System.currentTimeMillis() + "_" + username;
     }
 }
