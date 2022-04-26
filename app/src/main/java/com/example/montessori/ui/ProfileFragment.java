@@ -5,25 +5,42 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.montessori.R;
+import com.example.montessori.adapter.PostAdapter;
+import com.example.montessori.model.PostMember;
+import com.example.montessori.model.User;
+import com.example.montessori.util.Constants;
 import com.example.montessori.util.Helper;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.montessori.util.ReferenceConstant;
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 public class ProfileFragment extends Fragment {
-    private MaterialButton buttonLogout;
-    private TextView username,email, Role, profile;
+    private final FirebaseAuth auth = FirebaseAuth.getInstance();
+    private final FirebaseUser currentUser = auth.getCurrentUser();
+    private final FirebaseFirestore database = FirebaseFirestore.getInstance();
+    private final CollectionReference postReference = database.collection(ReferenceConstant.ALL_IMAGES);
+    private final CollectionReference userReference = database.collection(ReferenceConstant.USERS);
+    private PostAdapter adapter;
+
+    private TextView tvUsername;
+    private TextView tvEmail;
+    private TextView tvRole;
+    private RecyclerView rvPost;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,44 +50,56 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        username = view.findViewById(R.id.tv_name);
-        email = view.findViewById(R.id.tv_email);
-        Role = view.findViewById(R.id.tv_role);
-//        profile = view.findViewById(R.id.tv_profile);
-        buttonLogout = view.findViewById(R.id.btn_logout);
+        tvUsername = view.findViewById(R.id.tv_name);
+        tvEmail = view.findViewById(R.id.tv_email);
+        tvRole = view.findViewById(R.id.tv_role);
+        rvPost = view.findViewById(R.id.rvPost);
 
-        buttonLogout.setOnClickListener(view1 -> {
-            Helper.doLogout(requireActivity());
-        });
+        MaterialButton btnLogout = view.findViewById(R.id.btn_logout);
+
+        btnLogout.setOnClickListener(v -> Helper.doLogout(requireActivity()));
+
+        adapter = new PostAdapter(requireContext());
+
+        rvPost.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String currentid = user.getUid();
-        DocumentReference reference;
-        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
-
-        reference = firestore.collection("User").document(currentid);
-
-        reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.getResult().exists()) {
-                    String UserName = task.getResult().getString("UserName");
-                    String UserEmail = task.getResult().getString("UserEmail");
-                    String role = task.getResult().getString("role");
-                    username.setText(UserName);
-                    email.setText(UserEmail);
-                    Role.setText(role);
-//                    profile.setText(role);
-
+    private void loadData() {
+        if (currentUser != null) {
+            userReference.document(currentUser.getUid()).addSnapshotListener((value, error) -> {
+                if (value != null && value.exists()) {
+                    User data = value.toObject(User.class);
+                    if (data != null) {
+                        tvUsername.setText(data.getUserName());
+                        tvEmail.setText(data.getUserEmail());
+                        tvRole.setText(data.getRole());
+                    }
                 } else {
-
+                    Toast.makeText(requireContext(), "Error occurred when load user profile", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+            });
+
+            postReference.whereEqualTo(Constants.UID_FIELD, currentUser.getUid()).addSnapshotListener((value, error) -> {
+                if (value != null) {
+                    ArrayList<PostMember> posts = new ArrayList<>();
+                    for (DocumentSnapshot document : value.getDocuments()) {
+                        if (document.exists()) {
+                            PostMember data = document.toObject(PostMember.class);
+                            if (data != null) {
+                                posts.add(data);
+                            }
+                        }
+                    }
+                    adapter.setList(posts);
+                    rvPost.setAdapter(adapter);
+                }
+            });
+        }
     }
 }

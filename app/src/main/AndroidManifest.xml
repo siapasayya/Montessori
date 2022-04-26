@@ -10,6 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Montessori">
         <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.user.ShareActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.admin.AdminApproveActivity"
             android:exported="false" />
         <activity
