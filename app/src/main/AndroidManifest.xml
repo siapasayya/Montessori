@@ -10,22 +10,37 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Montessori">
         <activity
-            android:name=".PostDetailActivity"
+            android:name=".SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".PostActivity"
+            android:name=".ui.user.ShareActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.AdminApproveActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.admin.AdminAllPostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.user.DetailCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.user.PostDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.user.PostActivity"
             android:exported="false" />
         <activity
             android:name=".archive.CreateProfile"
             android:exported="false" />
         <activity
-            android:name=".UserDashboardActivity"
+            android:name=".ui.user.UserDashboardActivity"
             android:exported="false" />
         <activity
             android:name=".archive.tes2"
             android:exported="false" />
         <activity
-            android:name=".archive.tes"
+            android:name=".ui.admin.AdminDashboardActivity"
             android:exported="false" />
         <activity
             android:name=".ui.auth.RegisterActivity"

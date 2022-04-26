@@ -1,15 +1,15 @@
-package com.example.montessori;
+package com.example.montessori.ui.user;
 
 import android.os.Bundle;
-import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.montessori.R;
 import com.example.montessori.model.PostMember;
 import com.example.montessori.util.IntentNameExtra;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,10 +19,11 @@ public class PostDetailActivity extends AppCompatActivity {
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseUser currentUser = auth.getCurrentUser();
     private PostMember postData;
-    // private final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    // private final CollectionReference reference = database.collection(ReferenceConstant.ALL_IMAGES);
     private ImageView ivPost;
     private TextView tvDesc;
+    private TextView tvPem;
+    private TextView tvUmur;
+    private ImageButton imageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +38,16 @@ public class PostDetailActivity extends AppCompatActivity {
         }
 
         ivPost = findViewById(R.id.ivPost);
+        tvPem = findViewById(R.id.tvPem);
+        tvUmur = findViewById(R.id.tvUmur);
         tvDesc = findViewById(R.id.tvDesc);
+        imageButton = findViewById(R.id.back);
+
+        imageButton.setOnClickListener(view -> finish());
 
         Glide.with(this).load(postData.getPostUri()).into(ivPost);
         tvDesc.setText(postData.getDesc());
+        tvUmur.setText(postData.getUmur());
+        tvPem.setText(postData.getPem());
     }
 }

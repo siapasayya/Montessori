@@ -3,7 +3,6 @@ package com.example.montessori.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.montessori.PostDetailActivity;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.montessori.R;
 import com.example.montessori.model.PostMember;
+import com.example.montessori.ui.user.PostDetailActivity;
 import com.example.montessori.util.IntentNameExtra;
 
 import java.util.ArrayList;
@@ -46,7 +46,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // Log.d("FragmentAdapter", "Data: " + list.get(position));
         PostMember data = list.get(position);
         holder.bind(data);
         holder.itemView.setOnClickListener(view -> {
@@ -63,18 +62,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         private final ImageView ivPost;
+        private final TextView tvPem;
+        private final TextView tvUmur;
         private final TextView tvDesc;
-
+        private final TextView tvUsername;
+        private final TextView tvName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivPost = itemView.findViewById(R.id.ivPost);
+            tvUsername = itemView.findViewById(R.id.tv_username);
+            tvName = itemView.findViewById(R.id.tv_name);
             tvDesc = itemView.findViewById(R.id.tvDesc);
+            tvPem = itemView.findViewById(R.id.tvPem);
+            tvUmur = itemView.findViewById(R.id.tvUmur);
         }
 
         public void bind(PostMember item) {
-            Glide.with(ivPost).load(item.getPostUri()).into(ivPost);
+            Glide.with(ivPost)
+                    .applyDefaultRequestOptions(RequestOptions.centerCropTransform())
+                    .load(item.getPostUri())
+                    .into(ivPost);
+            tvUsername.setText(item.getFullUsername());
+            tvName.setText(item.getFullName());
             tvDesc.setText(item.getDesc());
+            tvPem.setText(item.getPem());
+            tvUmur.setText(item.getUmur());
         }
     }
 }

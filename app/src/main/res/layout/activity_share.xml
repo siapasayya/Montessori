@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.user.ShareActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -23,7 +25,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:fontFamily="@font/montserrat"
-            android:text="Upload"
+            android:text="Share"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -73,50 +75,6 @@
                     android:text="Choose any file"
                     android:textColor="@color/white" />
 
-                <LinearLayout
-                    android:id="@+id/linearLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_margin"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="5dp"
-                        android:paddingBottom="5dp"
-                        android:text="Pembelajaran" />
-
-                    <Spinner
-                        android:id="@+id/spinnerPem"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:entries="@array/pembelajaran" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/default_margin"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="6dp"
-                        android:paddingBottom="5dp"
-                        android:text="Umur" />
-
-                    <Spinner
-                        android:id="@+id/spinnerUmur"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:entries="@array/umur" />
-                </LinearLayout>
-
                 <EditText
                     android:id="@+id/et_desc_post"
                     android:layout_width="match_parent"
@@ -141,4 +99,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
+
 </RelativeLayout>
