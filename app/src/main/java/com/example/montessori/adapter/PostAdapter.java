@@ -45,7 +45,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // Log.d("FragmentAdapter", "Data: " + list.get(position));
         PostMember data = list.get(position);
         holder.bind(data);
         holder.itemView.setOnClickListener(view -> {
@@ -66,7 +65,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private final TextView tvUmur;
         private final TextView tvDesc;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ivPost = itemView.findViewById(R.id.ivPost);
@@ -81,6 +79,5 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             tvPem.setText(item.getPem());
             tvUmur.setText(item.getUmur());
         }
-
     }
 }

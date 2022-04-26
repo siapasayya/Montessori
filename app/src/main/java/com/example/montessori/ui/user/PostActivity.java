@@ -21,7 +21,6 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.montessori.R;
 import com.example.montessori.model.PostMember;
@@ -73,8 +72,6 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
-        MediaController mediaController = new MediaController(this);
-
         imageView = findViewById(R.id.img_post);
         btnChoose = findViewById(R.id.btn_choose_post);
         btnUpload = findViewById(R.id.btn_uploadfile_post);
@@ -94,12 +91,7 @@ public class PostActivity extends AppCompatActivity {
             finish();
         }
 
-        imageButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        imageButton.setOnClickListener(view -> finish());
 
         imageDatabase = database.collection(ReferenceConstant.ALL_IMAGES);
         videoDatabase = database.collection(ReferenceConstant.ALL_VIDEOS);
