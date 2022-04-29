@@ -117,6 +117,7 @@ public class PostActivity extends AppCompatActivity {
         post.setPem(categoryPem);
         post.setUmur(categoryAge);
         post.setApproved(!Helper.isNullOrBlank(userData.getRole()) && userData.getRole().equals(Constants.ROLE_PROFESSIONAL));
+        post.setChecked(!Helper.isNullOrBlank(userData.getRole()) && userData.getRole().equals(Constants.ROLE_PROFESSIONAL));
         post.setTime(time);
 
         if (post.isDataFilled() && selectedUri != null) {
