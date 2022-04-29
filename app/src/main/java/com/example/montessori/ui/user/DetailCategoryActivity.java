@@ -68,7 +68,7 @@ public class DetailCategoryActivity extends AppCompatActivity {
                 field = Constants.AGE_FIELD;
             }
 
-            postReference.whereEqualTo(field, category).addSnapshotListener((value, error) -> {
+            postReference.whereEqualTo(Constants.APPROVED_FIELD, true).whereEqualTo(field, category).addSnapshotListener((value, error) -> {
                 if (value != null) {
                     ArrayList<PostMember> posts = new ArrayList<>();
                     for (DocumentSnapshot document : value.getDocuments()) {
