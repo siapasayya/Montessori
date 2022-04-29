@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +21,6 @@ import com.example.montessori.model.User;
 import com.example.montessori.util.Constants;
 import com.example.montessori.util.Helper;
 import com.example.montessori.util.ReferenceConstant;
-import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -33,7 +33,7 @@ public class ProfileFragment extends Fragment {
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseUser currentUser = auth.getCurrentUser();
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private final CollectionReference postReference = database.collection(ReferenceConstant.ALL_IMAGES);
+    private final CollectionReference postReference = database.collection(ReferenceConstant.ALL_POSTS);
     private final CollectionReference userReference = database.collection(ReferenceConstant.USERS);
     private PostAdapter adapter;
 
@@ -55,7 +55,7 @@ public class ProfileFragment extends Fragment {
         tvRole = view.findViewById(R.id.tv_role);
         rvPost = view.findViewById(R.id.rvPost);
 
-        MaterialButton btnLogout = view.findViewById(R.id.btn_logout);
+        ImageButton btnLogout = view.findViewById(R.id.ib_logout);
 
         btnLogout.setOnClickListener(v -> Helper.doLogout(requireActivity()));
 

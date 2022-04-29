@@ -32,13 +32,13 @@
                 android:textStyle="bold" />
 
             <ImageButton
-                android:id="@+id/ib_edit_f1"
+                android:id="@+id/ib_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
+                android:layout_gravity="end|center_vertical"
                 android:layout_margin="10dp"
                 android:background="@android:color/transparent"
-                android:src="@drawable/ic_edit" />
+                android:src="@drawable/ic_exit" />
 
 
         </androidx.cardview.widget.CardView>
@@ -65,8 +65,8 @@
 
             <TextView
                 android:id="@+id/tv_role"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="5dp"
                 android:text="Role"
@@ -133,7 +133,7 @@
                     android:textColor="@color/black" />
             </LinearLayout>
 
-            <com.google.android.material.button.MaterialButton
+            <!--<com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -143,10 +143,10 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtprofile" />
+                app:layout_constraintTop_toBottomOf="@+id/txtprofile" />-->
         </LinearLayout>
 
-        <RelativeLayout
+        <View
             android:layout_width="match_parent"
             android:layout_height="7dp"
             android:background="@color/grey_light" />
