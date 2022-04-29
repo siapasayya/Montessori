@@ -15,7 +15,7 @@ public class AdminApproveActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_approve);
-        imageButton = findViewById(R.id.back);
+        imageButton = findViewById(R.id.btnBack);
 
         imageButton.setOnClickListener(view -> finish());
     }

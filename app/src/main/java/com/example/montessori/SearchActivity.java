@@ -8,13 +8,11 @@ import android.widget.ImageButton;
 public class SearchActivity extends AppCompatActivity {
     private ImageButton imageButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-        imageButton = findViewById(R.id.back);
+        imageButton = findViewById(R.id.btnBack);
         imageButton.setOnClickListener(view -> finish());
-
     }
 }

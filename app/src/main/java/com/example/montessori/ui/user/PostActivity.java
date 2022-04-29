@@ -76,7 +76,7 @@ public class PostActivity extends AppCompatActivity {
         imagePreview = findViewById(R.id.img_post);
         Button btnChoose = findViewById(R.id.btn_choose_post);
         Button btnUpload = findViewById(R.id.btn_uploadfile_post);
-        ImageButton btnBack = findViewById(R.id.back);
+        ImageButton btnBack = findViewById(R.id.btnBack);
 
         if (currentUser != null) {
             currentUid = currentUser.getUid();

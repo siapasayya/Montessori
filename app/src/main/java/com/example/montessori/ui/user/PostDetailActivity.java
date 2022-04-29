@@ -45,7 +45,7 @@ public class PostDetailActivity extends AppCompatActivity {
         tvUmur = findViewById(R.id.tvUmur);
         tvDesc = findViewById(R.id.tvDesc);
 
-        imageButton = findViewById(R.id.back);
+        imageButton = findViewById(R.id.btnBack);
         btn_share = findViewById(R.id.share);
 
         imageButton.setOnClickListener(view -> finish());

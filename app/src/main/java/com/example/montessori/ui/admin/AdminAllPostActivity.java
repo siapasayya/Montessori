@@ -35,7 +35,7 @@ public class AdminAllPostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_all_post);
 
         rvPost = findViewById(R.id.rvPost);
-        imageButton = findViewById(R.id.back);
+        imageButton = findViewById(R.id.btnBack);
 
         adapter = new PostAdapter(this);
 
