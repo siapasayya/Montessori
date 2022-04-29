@@ -49,6 +49,9 @@
     <string name="register_as_professional">Register As Professional</string>
     <string name="title_activity_user">UserActivity</string>
 
+    <string name="post_approved_message">%s\'s post approved!</string>
+    <string name="post_rejected_message">%s\'s post rejected.</string>
+
     <string name="search">Search</string>
     <string name="add">Add</string>
     <!-- TODO: Remove or change this placeholder text -->

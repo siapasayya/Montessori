@@ -5,7 +5,8 @@ public class Constants {
     public static final String VIDEO_TYPE = "VIDEO_TYPE";
 
     public static final String UID_FIELD = "uid";
-    public static final String APPROVE_FIELD = "approved";
+    public static final String APPROVED_FIELD = "approved";
+    public static final String CHECKED_FIELD = "checked";
     public static final String LEARNING_FIELD = "pem";
     public static final String AGE_FIELD = "umur";
 

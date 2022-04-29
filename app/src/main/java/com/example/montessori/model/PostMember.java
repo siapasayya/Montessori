@@ -9,6 +9,7 @@ import com.google.firebase.firestore.Exclude;
 public class PostMember implements Parcelable {
     private String id, name, username, uid, postUri, desc, pem, umur, time, type;
     private boolean approved = false;
+    private boolean checked = false;
 
     public PostMember() {
     }
@@ -17,13 +18,15 @@ public class PostMember implements Parcelable {
         id = in.readString();
         name = in.readString();
         username = in.readString();
-        postUri = in.readString();
-        time = in.readString();
         uid = in.readString();
-        type = in.readString();
+        postUri = in.readString();
         desc = in.readString();
         pem = in.readString();
         umur = in.readString();
+        time = in.readString();
+        type = in.readString();
+        approved = in.readByte() != 0;
+        checked = in.readByte() != 0;
     }
 
     public static final Creator<PostMember> CREATOR = new Creator<PostMember>() {
@@ -150,6 +153,14 @@ public class PostMember implements Parcelable {
         this.umur = umur;
     }
 
+    public boolean isChecked() {
+        return checked;
+    }
+
+    public void setChecked(boolean checked) {
+        this.checked = checked;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -160,12 +171,14 @@ public class PostMember implements Parcelable {
         parcel.writeString(id);
         parcel.writeString(name);
         parcel.writeString(username);
-        parcel.writeString(postUri);
-        parcel.writeString(time);
         parcel.writeString(uid);
-        parcel.writeString(type);
+        parcel.writeString(postUri);
         parcel.writeString(desc);
         parcel.writeString(pem);
         parcel.writeString(umur);
+        parcel.writeString(time);
+        parcel.writeString(type);
+        parcel.writeByte((byte) (approved ? 1 : 0));
+        parcel.writeByte((byte) (checked ? 1 : 0));
     }
 }

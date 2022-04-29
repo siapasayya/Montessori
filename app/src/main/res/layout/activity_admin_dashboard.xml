@@ -25,7 +25,7 @@
             android:textStyle="bold" />
 
         <ImageButton
-            android:id="@+id/ib_edit_f1"
+            android:id="@+id/ib_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right|center_vertical"
@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/default_margin"
-            android:text="Approve" />
+            android:text="List Approval" />
 
         <Button
             android:id="@+id/btn_all_post"
@@ -57,10 +57,12 @@
             android:layout_marginBottom="@dimen/default_margin"
             android:text="All Post" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Logout" />
+            android:backgroundTint="@color/negative_color"
+            android:text="Logout"
+            android:textColor="@color/white" />
     </LinearLayout>
 </RelativeLayout>

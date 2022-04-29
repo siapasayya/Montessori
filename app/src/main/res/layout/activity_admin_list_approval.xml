@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.admin.AdminAllPostActivity">
+    tools:context=".ui.admin.AdminListApprovalActivity">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/toolbar"
@@ -19,7 +19,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:fontFamily="@font/montserrat"
-            android:text="ALL POST"
+            android:text="LIST APPROVAL"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
