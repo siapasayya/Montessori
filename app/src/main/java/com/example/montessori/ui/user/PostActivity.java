@@ -44,7 +44,6 @@ public class PostActivity extends AppCompatActivity {
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseUser currentUser = auth.getCurrentUser();
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private final CollectionReference imageDatabase = database.collection(ReferenceConstant.ALL_IMAGES);
     private final CollectionReference postDatabase = database.collection(ReferenceConstant.ALL_POSTS);
     private final CollectionReference userDatabase = database.collection(ReferenceConstant.USERS);
     private final StorageReference storageReference = FirebaseStorage.getInstance().getReference(ReferenceConstant.USER_POSTS);
@@ -141,7 +140,6 @@ public class PostActivity extends AppCompatActivity {
                     if (!Helper.isNullOrBlank(post.getType()) && post.getType().equals(Constants.IMAGE_TYPE)) {
                         post.setPostUri(downloadUrl.toString());
 
-                        imageDatabase.document(post.getId()).set(post);
                         postDatabase.document(post.getId()).set(post);
 
                         Toast.makeText(PostActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();

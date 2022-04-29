@@ -27,7 +27,7 @@ public class AdminAllPostActivity extends AppCompatActivity {
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseUser currentUser = auth.getCurrentUser();
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private final CollectionReference reference = database.collection(ReferenceConstant.ALL_IMAGES);
+    private final CollectionReference postReference = database.collection(ReferenceConstant.ALL_POSTS);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class AdminAllPostActivity extends AppCompatActivity {
 
     private void loadData() {
         if (currentUser != null) {
-            reference.addSnapshotListener((value, error) -> {
+            postReference.addSnapshotListener((value, error) -> {
                 if (value != null) {
                     ArrayList<PostMember> posts = new ArrayList<>();
                     for (DocumentSnapshot document : value.getDocuments()) {
