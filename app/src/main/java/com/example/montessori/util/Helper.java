@@ -39,9 +39,10 @@ public class Helper {
         activity.finish();
     }
 
-    public static void Category(String category, Activity activity) {
+    public static void openCategoryPage(Activity activity, String category, boolean isLearningCategory) {
         Intent intent = new Intent(activity, DetailCategoryActivity.class);
         intent.putExtra(IntentNameExtra.CATEGORY_DATA, category);
+        intent.putExtra(IntentNameExtra.IS_LEARNING_CATEGORY, isLearningCategory);
         activity.startActivity(intent);
     }
 

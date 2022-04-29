@@ -14,6 +14,7 @@
         android:backgroundTint="@color/teal_200">
 
         <TextView
+            android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -22,7 +23,8 @@
             android:text="CATEGORY"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAllCaps="true"/>
 
 <!--        <ImageButton-->
 <!--            android:id="@+id/ib_edit_f1"-->
@@ -34,7 +36,7 @@
 <!--            android:src="@drawable/ic_search" />-->
 
         <ImageButton
-            android:id="@+id/back"
+            android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left|center_vertical"
