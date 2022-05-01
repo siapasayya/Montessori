@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
     tools:context=".ui.admin.AdminDashboardActivity">
 
     <androidx.cardview.widget.CardView
@@ -24,14 +23,15 @@
             android:textSize="20sp"
             android:textStyle="bold" />
 
+
         <ImageButton
-            android:id="@+id/ib_search"
+            android:id="@+id/ib_logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="10dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_margin="10dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/ic_search" />
+            android:src="@drawable/ic_exit" />
 
     </androidx.cardview.widget.CardView>
 
@@ -57,12 +57,5 @@
             android:layout_marginBottom="@dimen/default_margin"
             android:text="All Post" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/negative_color"
-            android:text="Logout"
-            android:textColor="@color/white" />
     </LinearLayout>
 </RelativeLayout>

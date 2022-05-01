@@ -25,7 +25,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:fontFamily="@font/montserrat"
-            android:text="Share"
+            android:text="SHARE"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
