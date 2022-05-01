@@ -13,9 +13,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.montessori.R;
-import com.example.montessori.adapter.PostAdapter;
+import com.example.montessori.adapter.PostProfileAdapter;
 import com.example.montessori.model.PostMember;
 import com.example.montessori.model.User;
 import com.example.montessori.util.Constants;
@@ -35,12 +36,14 @@ public class ProfileFragment extends Fragment {
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
     private final CollectionReference postReference = database.collection(ReferenceConstant.ALL_POSTS);
     private final CollectionReference userReference = database.collection(ReferenceConstant.USERS);
-    private PostAdapter adapter;
+    private PostProfileAdapter adapter;
 
     private TextView tvUsername;
     private TextView tvEmail;
     private TextView tvRole;
     private RecyclerView rvPost;
+
+    private SwipeRefreshLayout swipeLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,11 +58,15 @@ public class ProfileFragment extends Fragment {
         tvRole = view.findViewById(R.id.tv_role);
         rvPost = view.findViewById(R.id.rvPost);
 
+        swipeLayout = view.findViewById(R.id.swipeLayout);
+
         ImageButton btnLogout = view.findViewById(R.id.ib_logout);
 
         btnLogout.setOnClickListener(v -> Helper.doLogout(requireActivity()));
 
-        adapter = new PostAdapter(requireContext());
+        adapter = new PostProfileAdapter(requireContext());
+
+        swipeLayout.setOnRefreshListener(() -> loadData());
 
         rvPost.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
@@ -99,6 +106,7 @@ public class ProfileFragment extends Fragment {
                     adapter.setList(posts);
                     rvPost.setAdapter(adapter);
                 }
+                swipeLayout.setRefreshing(false);
             });
         }
     }
