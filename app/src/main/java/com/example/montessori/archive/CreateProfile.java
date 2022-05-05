@@ -62,10 +62,10 @@ public class CreateProfile extends AppCompatActivity {
         setContentView(R.layout.activity_create_profile);
 
         member = new User();
-        imageView = findViewById(R.id.iv_edit);
+        /*imageView = findViewById(R.id.iv_edit);
         etname = findViewById(R.id.et_name_ep);
         etusername = findViewById(R.id.et_username_ep);
-        etemail = findViewById(R.id.et_email_ep);
+        etemail = findViewById(R.id.et_email_ep);*/
         Btn = findViewById(R.id.btn_save_ep);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
