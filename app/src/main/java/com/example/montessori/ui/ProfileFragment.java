@@ -80,9 +80,9 @@ public class ProfileFragment extends Fragment {
 
     private void loadData() {
         if (currentUser != null) {
-            userReference.document(currentUser.getUid()).addSnapshotListener((value, error) -> {
-                if (value != null && value.exists()) {
-                    User data = value.toObject(User.class);
+            userReference.document(currentUser.getUid()).get().addOnCompleteListener(task -> {
+                if (task.getResult() != null && task.getResult().exists()) {
+                    User data = task.getResult().toObject(User.class);
                     if (data != null) {
                         tvUsername.setText(data.getUserName());
                         tvEmail.setText(data.getUserEmail());

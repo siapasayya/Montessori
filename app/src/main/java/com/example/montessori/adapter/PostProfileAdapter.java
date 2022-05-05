@@ -61,18 +61,20 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
+        private final Context context;
         private final ImageView ivPost;
-        private final TextView tvPem;
-        private final TextView tvUmur;
+        private final TextView tvTitle;
+        private final TextView tvCategory;
         private final TextView tvDesc;
         private final TextView tvStatus;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            context = itemView.getContext();
             ivPost = itemView.findViewById(R.id.ivPost);
+            tvCategory = itemView.findViewById(R.id.tvCategory);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDesc = itemView.findViewById(R.id.tvDesc);
-            tvPem = itemView.findViewById(R.id.tvPem);
-            tvUmur = itemView.findViewById(R.id.tvUmur);
             tvStatus = itemView.findViewById(R.id.tvStatus);
         }
 
@@ -81,16 +83,10 @@ public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.
                     .applyDefaultRequestOptions(RequestOptions.centerCropTransform())
                     .load(item.getPostUri())
                     .into(ivPost);
-            if (item.isChecked() && item.isApproved()) {
-                tvStatus.setText("Status : Disetujui");
-            } else if (item.isChecked() && !item.isApproved()) {
-                tvStatus.setText("Status : Ditolak");
-            } else {
-                tvStatus.setText("Status : Menunggu");
-            }
-            tvDesc.setText(item.getDesc());
-            tvPem.setText(item.getPem());
-            tvUmur.setText(item.getUmur());
+            tvTitle.setText(item.getPostTitle());
+            tvCategory.setText(item.getCategory(context));
+            tvDesc.setText(item.getShortDescription());
+            tvStatus.setText(item.getStatus(context));
         }
     }
 }

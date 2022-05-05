@@ -61,33 +61,30 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private final ImageView ivPost;
-        private final TextView tvPem;
-        private final TextView tvUmur;
-        private final TextView tvDesc;
-        private final TextView tvUsername;
         private final TextView tvName;
+        private final TextView tvCategory;
+        private final ImageView ivPost;
+        private final TextView tvTitle;
+        private final TextView tvDesc;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvName = itemView.findViewById(R.id.tvName);
+            tvCategory = itemView.findViewById(R.id.tvCategory);
             ivPost = itemView.findViewById(R.id.ivPost);
-            tvUsername = itemView.findViewById(R.id.tv_username);
-            tvName = itemView.findViewById(R.id.tv_name);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDesc = itemView.findViewById(R.id.tvDesc);
-            tvPem = itemView.findViewById(R.id.tvPem);
-            tvUmur = itemView.findViewById(R.id.tvUmur);
         }
 
         public void bind(PostMember item) {
+            tvName.setText(item.getFullName());
+            tvCategory.setText(item.getCategory(tvCategory.getContext()));
             Glide.with(ivPost)
                     .applyDefaultRequestOptions(RequestOptions.centerCropTransform())
                     .load(item.getPostUri())
                     .into(ivPost);
-            tvUsername.setText(item.getFullUsername());
-            tvName.setText(item.getFullName());
-            tvDesc.setText(item.getDesc());
-            tvPem.setText(item.getPem());
-            tvUmur.setText(item.getUmur());
+            tvTitle.setText(item.getPostTitle());
+            tvDesc.setText(item.getShortDescription());
         }
     }
 }

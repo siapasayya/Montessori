@@ -9,6 +9,7 @@ public class Constants {
     public static final String CHECKED_FIELD = "checked";
     public static final String LEARNING_FIELD = "pem";
     public static final String AGE_FIELD = "umur";
+    public static final String TIME_FIELD = "time";
 
     public static final String CATEGORY_PRACTICAL = "Practical Life";
     public static final String CATEGORY_MATH = "Math";
