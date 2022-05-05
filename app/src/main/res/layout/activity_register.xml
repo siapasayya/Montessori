@@ -57,7 +57,7 @@
         android:hint="@string/register_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_fullname"
+        app:layout_constraintTop_toBottomOf="@+id/til_username"
         app:startIconDrawable="@drawable/ic_email">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -76,7 +76,7 @@
         android:hint="@string/register_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_email"
+        app:layout_constraintTop_toBottomOf="@+id/til_fullname"
         app:startIconDrawable="@drawable/ic_circle_account">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -95,7 +95,7 @@
         android:hint="@string/login_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_username"
+        app:layout_constraintTop_toBottomOf="@+id/til_email"
         app:startIconDrawable="@drawable/ic_lock">
 
         <com.google.android.material.textfield.TextInputEditText

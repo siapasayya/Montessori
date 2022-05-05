@@ -1,8 +1,11 @@
 package com.example.montessori.ui.auth;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,12 +36,20 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin = findViewById(R.id.btn_login);
 
+        tvPassword.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                btnLogin.performClick();
+                return true;
+            }
+
+            return false;
+        });
         btnLogin.setOnClickListener(view -> {
             if (isFieldNotValid(tvEmail) || isFieldNotValid(tvPassword)) {
                 return;
             }
 
-            auth.signInWithEmailAndPassword(tvEmail.getText().toString(), tvPassword.getText().toString()).addOnSuccessListener(authResult -> {
+            auth.signInWithEmailAndPassword(tvEmail.getText().toString().trim(), tvPassword.getText().toString().trim()).addOnSuccessListener(authResult -> {
                 if (authResult.getUser() != null) {
                     Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                     checkUserAccessLevel(authResult.getUser().getUid());
