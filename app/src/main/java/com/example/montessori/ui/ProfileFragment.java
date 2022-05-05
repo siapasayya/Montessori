@@ -27,6 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
@@ -92,7 +93,7 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-            postReference.whereEqualTo(Constants.UID_FIELD, currentUser.getUid()).addSnapshotListener((value, error) -> {
+            postReference.whereEqualTo(Constants.UID_FIELD, currentUser.getUid()).orderBy(Constants.TIME_FIELD, Query.Direction.ASCENDING).addSnapshotListener((value, error) -> {
                 if (value != null) {
                     ArrayList<PostMember> posts = new ArrayList<>();
                     for (DocumentSnapshot document : value.getDocuments()) {
