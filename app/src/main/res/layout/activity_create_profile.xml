@@ -1,93 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
     tools:context=".archive.CreateProfile">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center_horizontal"
-        android:text="Edit Profile"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
-
     <androidx.cardview.widget.CardView
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardCornerRadius="75dp"
-        android:layout_marginBottom="30dp">
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/teal_200">
 
-        <ImageView
-            android:id="@+id/iv_edit"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/ic_profile"
-            android:backgroundTint="@color/teal_200"
-            android:clickable="true"
-            android:scaleType="fitCenter" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/montserrat"
+            android:text="EDIT PROFILE"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="10dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ic_back" />
 
     </androidx.cardview.widget.CardView>
 
-    <EditText
-        android:id="@+id/et_name_ep"
+    <LinearLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name"
-        android:fontFamily="@font/montserrat"
-        android:paddingStart="5dp"
-        android:drawablePadding="7dp"
-        android:layout_margin="4dp"
-        android:textColor="@color/black"
-        android:drawableLeft="@drawable/ic_account"
-        android:paddingLeft="10dp"/>
+        android:layout_centerInParent="true"
+        android:layout_margin="@dimen/default_margin"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/et_username_ep"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Username"
-        android:fontFamily="@font/montserrat"
-        android:paddingStart="2dp"
-        android:drawablePadding="3dp"
-        android:layout_margin="4dp"
-        android:textColor="@color/black"
-        android:drawableLeft="@drawable/ic_circle_account"
-        android:paddingLeft="10dp"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_fullname"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/register_fullname"
+            app:startIconDrawable="@drawable/ic_account">
 
-    <EditText
-        android:id="@+id/et_email_ep"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        android:fontFamily="@font/montserrat"
-        android:paddingStart="5dp"
-        android:drawablePadding="7dp"
-        android:layout_margin="4dp"
-        android:textColor="@color/black"
-        android:drawableLeft="@drawable/ic_email"
-        android:paddingLeft="10dp"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_fullname"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btn_save_ep"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/teal_200"
-        android:textColor="@color/white"
-        android:text="Save Profile"
-        android:textSize="20sp"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/montserrat"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_username"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="@string/register_username"
+            app:startIconDrawable="@drawable/ic_circle_account">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_username"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_email"
+            style="@style/TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:hint="@string/register_email"
+            app:startIconDrawable="@drawable/ic_email">
 
-</LinearLayout>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_email"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_save_ep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@color/teal_200"
+            android:fontFamily="@font/montserrat"
+            android:text="Save Profile"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+</RelativeLayout>

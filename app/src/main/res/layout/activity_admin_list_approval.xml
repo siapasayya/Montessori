@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SearchActivity">
+    tools:context=".ui.admin.AdminListApprovalActivity">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginBottom="5dp"
@@ -18,7 +19,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_margin="10dp"
             android:fontFamily="@font/montserrat"
-            android:text="SEARCH"
+            android:text="LIST APPROVAL"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -37,31 +38,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <EditText
-            android:id="@+id/editTextTextPersonName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/default_margin"
-            android:layout_marginTop="@dimen/default_margin"
-            android:layout_marginEnd="@dimen/default_margin"
-            android:layout_marginBottom="@dimen/default_margin"
-            android:drawableStart="@drawable/ic_search_grey"
-            android:ems="10"
-            android:hint="Search...."
-            android:inputType="textPersonName"
-            android:padding="@dimen/default_padding" />
-    </LinearLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="7dp"
-        android:background="@color/grey_light" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -71,4 +47,5 @@
             android:layout_margin="5dp" />
 
     </LinearLayout>
+
 </LinearLayout>

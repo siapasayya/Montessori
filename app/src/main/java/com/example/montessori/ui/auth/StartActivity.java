@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class StartActivity extends AppCompatActivity {
-    private Button btnLogin, btnRegister;
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
 
@@ -25,22 +24,21 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        btnLogin = findViewById(R.id.btn_login);
-        btnRegister = findViewById(R.id.btn_register);
+        Button btnLogin = findViewById(R.id.btn_login);
+        Button btnRegister = findViewById(R.id.btn_register);
+
+        btnLogin.setOnClickListener(view -> startActivity(new Intent(StartActivity.this, LoginActivity.class)));
+        btnRegister.setOnClickListener(view -> startActivity(new Intent(StartActivity.this, RegisterActivity.class)));
 
         if (auth.getCurrentUser() != null) {
             checkUserAccessLevel(auth.getCurrentUser().getUid());
         }
-
-        btnLogin.setOnClickListener(view -> startActivity(new Intent(StartActivity.this, LoginActivity.class)));
-        btnRegister.setOnClickListener(view -> startActivity(new Intent(StartActivity.this, RegisterActivity.class)));
     }
 
     private void checkUserAccessLevel(String uid) {
-        database.collection(ReferenceConstant.USERS).document(uid).addSnapshotListener((documentSnapshot, error) -> {
-            if (documentSnapshot != null && documentSnapshot.exists()) {
-                User userData = documentSnapshot.toObject(User.class);
-
+        database.collection(ReferenceConstant.USERS).document(uid).get().addOnCompleteListener(task -> {
+            if (task.getResult() != null && task.getResult().exists()) {
+                User userData = task.getResult().toObject(User.class);
                 if (userData != null && userData.getRole() != null) {
                     switch (userData.getRole()) {
                         case Constants.ROLE_ADMIN:

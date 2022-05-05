@@ -1,6 +1,7 @@
 package com.example.montessori.ui.auth;
 
 import android.os.Bundle;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -33,12 +34,20 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin = findViewById(R.id.btn_login);
 
+        tvPassword.setOnEditorActionListener((textView, actionId, keyEvent) -> {
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                btnLogin.performClick();
+                return true;
+            }
+
+            return false;
+        });
         btnLogin.setOnClickListener(view -> {
             if (isFieldNotValid(tvEmail) || isFieldNotValid(tvPassword)) {
                 return;
             }
 
-            auth.signInWithEmailAndPassword(tvEmail.getText().toString(), tvPassword.getText().toString()).addOnSuccessListener(authResult -> {
+            auth.signInWithEmailAndPassword(tvEmail.getText().toString().trim(), tvPassword.getText().toString().trim()).addOnSuccessListener(authResult -> {
                 if (authResult.getUser() != null) {
                     Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
                     checkUserAccessLevel(authResult.getUser().getUid());
@@ -50,10 +59,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkUserAccessLevel(String uid) {
-        database.collection(ReferenceConstant.USERS).document(uid).addSnapshotListener((documentSnapshot, error) -> {
-            if (documentSnapshot != null && documentSnapshot.exists()) {
-                User userData = documentSnapshot.toObject(User.class);
-
+        database.collection(ReferenceConstant.USERS).document(uid).get().addOnCompleteListener(task -> {
+            if (task.getResult() != null && task.getResult().exists()) {
+                User userData = task.getResult().toObject(User.class);
                 if (userData != null && userData.getRole() != null) {
                     switch (userData.getRole()) {
                         case Constants.ROLE_ADMIN:

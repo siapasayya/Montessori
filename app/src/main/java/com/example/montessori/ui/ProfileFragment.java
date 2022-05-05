@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,20 +13,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.montessori.R;
-import com.example.montessori.adapter.PostAdapter;
+import com.example.montessori.adapter.PostProfileAdapter;
 import com.example.montessori.model.PostMember;
 import com.example.montessori.model.User;
 import com.example.montessori.util.Constants;
 import com.example.montessori.util.Helper;
 import com.example.montessori.util.ReferenceConstant;
-import com.google.android.material.button.MaterialButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
 
@@ -33,14 +35,16 @@ public class ProfileFragment extends Fragment {
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseUser currentUser = auth.getCurrentUser();
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private final CollectionReference postReference = database.collection(ReferenceConstant.ALL_IMAGES);
+    private final CollectionReference postReference = database.collection(ReferenceConstant.ALL_POSTS);
     private final CollectionReference userReference = database.collection(ReferenceConstant.USERS);
-    private PostAdapter adapter;
+    private PostProfileAdapter adapter;
 
     private TextView tvUsername;
     private TextView tvEmail;
     private TextView tvRole;
     private RecyclerView rvPost;
+
+    private SwipeRefreshLayout swipeLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,11 +59,15 @@ public class ProfileFragment extends Fragment {
         tvRole = view.findViewById(R.id.tv_role);
         rvPost = view.findViewById(R.id.rvPost);
 
-        MaterialButton btnLogout = view.findViewById(R.id.btn_logout);
+        swipeLayout = view.findViewById(R.id.swipeLayout);
+
+        ImageButton btnLogout = view.findViewById(R.id.ib_logout);
 
         btnLogout.setOnClickListener(v -> Helper.doLogout(requireActivity()));
 
-        adapter = new PostAdapter(requireContext());
+        adapter = new PostProfileAdapter(requireContext());
+
+        swipeLayout.setOnRefreshListener(() -> loadData());
 
         rvPost.setLayoutManager(new LinearLayoutManager(requireContext()));
     }
@@ -72,9 +80,9 @@ public class ProfileFragment extends Fragment {
 
     private void loadData() {
         if (currentUser != null) {
-            userReference.document(currentUser.getUid()).addSnapshotListener((value, error) -> {
-                if (value != null && value.exists()) {
-                    User data = value.toObject(User.class);
+            userReference.document(currentUser.getUid()).get().addOnCompleteListener(task -> {
+                if (task.getResult() != null && task.getResult().exists()) {
+                    User data = task.getResult().toObject(User.class);
                     if (data != null) {
                         tvUsername.setText(data.getUserName());
                         tvEmail.setText(data.getUserEmail());
@@ -85,7 +93,7 @@ public class ProfileFragment extends Fragment {
                 }
             });
 
-            postReference.whereEqualTo(Constants.UID_FIELD, currentUser.getUid()).addSnapshotListener((value, error) -> {
+            postReference.whereEqualTo(Constants.UID_FIELD, currentUser.getUid()).orderBy(Constants.TIME_FIELD, Query.Direction.ASCENDING).addSnapshotListener((value, error) -> {
                 if (value != null) {
                     ArrayList<PostMember> posts = new ArrayList<>();
                     for (DocumentSnapshot document : value.getDocuments()) {
@@ -99,6 +107,7 @@ public class ProfileFragment extends Fragment {
                     adapter.setList(posts);
                     rvPost.setAdapter(adapter);
                 }
+                swipeLayout.setRefreshing(false);
             });
         }
     }

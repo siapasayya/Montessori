@@ -14,27 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/default_margin"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/text_margin"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                tools:text="Name" />
-
-            <TextView
-                android:id="@+id/tvCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Category: Practical Life, 10-16 tahun" />
-        </LinearLayout>
-
         <ImageView
             android:id="@+id/ivPost"
             android:layout_width="match_parent"
@@ -55,13 +34,24 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 tools:text="Article Title" />
-
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/text_margin"
+                tools:text="Category: Practical Life, 10-16 tahun" />
             <TextView
                 android:id="@+id/tvDesc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 tools:text="@string/text_placeholder" />
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                tools:text="Status: Disetujui" />
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

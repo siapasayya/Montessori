@@ -25,22 +25,13 @@
             android:textStyle="bold" />
 
         <ImageButton
-            android:id="@+id/back"
+            android:id="@+id/btnBack"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="10dp"
             android:background="@android:color/transparent"
             android:src="@drawable/ic_back" />
-
-        <ImageButton
-            android:id="@+id/ib_edit_f1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="10dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_search" />
 
     </androidx.cardview.widget.CardView>
 

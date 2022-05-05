@@ -44,7 +44,6 @@ public class PostActivity extends AppCompatActivity {
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseUser currentUser = auth.getCurrentUser();
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private final CollectionReference imageDatabase = database.collection(ReferenceConstant.ALL_IMAGES);
     private final CollectionReference postDatabase = database.collection(ReferenceConstant.ALL_POSTS);
     private final CollectionReference userDatabase = database.collection(ReferenceConstant.USERS);
     private final StorageReference storageReference = FirebaseStorage.getInstance().getReference(ReferenceConstant.USER_POSTS);
@@ -77,7 +76,7 @@ public class PostActivity extends AppCompatActivity {
         imagePreview = findViewById(R.id.img_post);
         Button btnChoose = findViewById(R.id.btn_choose_post);
         Button btnUpload = findViewById(R.id.btn_uploadfile_post);
-        ImageButton btnBack = findViewById(R.id.back);
+        ImageButton btnBack = findViewById(R.id.btnBack);
 
         if (currentUser != null) {
             currentUid = currentUser.getUid();
@@ -118,6 +117,7 @@ public class PostActivity extends AppCompatActivity {
         post.setPem(categoryPem);
         post.setUmur(categoryAge);
         post.setApproved(!Helper.isNullOrBlank(userData.getRole()) && userData.getRole().equals(Constants.ROLE_PROFESSIONAL));
+        post.setChecked(!Helper.isNullOrBlank(userData.getRole()) && userData.getRole().equals(Constants.ROLE_PROFESSIONAL));
         post.setTime(time);
 
         if (post.isDataFilled() && selectedUri != null) {
@@ -141,7 +141,6 @@ public class PostActivity extends AppCompatActivity {
                     if (!Helper.isNullOrBlank(post.getType()) && post.getType().equals(Constants.IMAGE_TYPE)) {
                         post.setPostUri(downloadUrl.toString());
 
-                        imageDatabase.document(post.getId()).set(post);
                         postDatabase.document(post.getId()).set(post);
 
                         Toast.makeText(PostActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();

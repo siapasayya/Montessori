@@ -22,11 +22,11 @@ import com.example.montessori.util.IntentNameExtra;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
+public class PostProfileAdapter extends RecyclerView.Adapter<PostProfileAdapter.ViewHolder> {
     private final Context context;
     private final ArrayList<PostMember> list = new ArrayList<>();
 
-    public PostAdapter(Context context) {
+    public PostProfileAdapter(Context context) {
         this.context = context;
     }
 
@@ -40,7 +40,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post_profile, parent, false);
         return new ViewHolder(v);
     }
 
@@ -61,30 +61,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView tvName;
-        private final TextView tvCategory;
+        private final Context context;
         private final ImageView ivPost;
         private final TextView tvTitle;
+        private final TextView tvCategory;
         private final TextView tvDesc;
+        private final TextView tvStatus;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tvName);
-            tvCategory = itemView.findViewById(R.id.tvCategory);
+            context = itemView.getContext();
             ivPost = itemView.findViewById(R.id.ivPost);
+            tvCategory = itemView.findViewById(R.id.tvCategory);
             tvTitle = itemView.findViewById(R.id.tvTitle);
             tvDesc = itemView.findViewById(R.id.tvDesc);
+            tvStatus = itemView.findViewById(R.id.tvStatus);
         }
 
         public void bind(PostMember item) {
-            tvName.setText(item.getFullName());
-            tvCategory.setText(item.getCategory(tvCategory.getContext()));
             Glide.with(ivPost)
                     .applyDefaultRequestOptions(RequestOptions.centerCropTransform())
                     .load(item.getPostUri())
                     .into(ivPost);
             tvTitle.setText(item.getPostTitle());
+            tvCategory.setText(item.getCategory(context));
             tvDesc.setText(item.getShortDescription());
+            tvStatus.setText(item.getStatus(context));
         }
     }
 }

@@ -1,14 +1,23 @@
 package com.example.montessori.model;
 
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.example.montessori.R;
 import com.example.montessori.util.Helper;
 import com.google.firebase.firestore.Exclude;
 
 public class PostMember implements Parcelable {
-    private String id, name, username, uid, postUri, desc, pem, umur, time, type;
+    private static final int WORD_LIMIT = 20;
+    private static final int CHARACTER_LIMIT = 100;
+    private static final String APPROVED = "Approved";
+    private static final String WAITING_FOR_APPROVAL = "Waiting for Approval";
+    private static final String REJECTED = "Rejected";
+
+    private String id, name, username, uid, postUri, title, desc, pem, umur, time, type;
     private boolean approved = false;
+    private boolean checked = false;
 
     public PostMember() {
     }
@@ -17,13 +26,38 @@ public class PostMember implements Parcelable {
         id = in.readString();
         name = in.readString();
         username = in.readString();
-        postUri = in.readString();
-        time = in.readString();
         uid = in.readString();
-        type = in.readString();
+        postUri = in.readString();
+        title = in.readString();
         desc = in.readString();
         pem = in.readString();
         umur = in.readString();
+        time = in.readString();
+        type = in.readString();
+        approved = in.readByte() != 0;
+        checked = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
+        dest.writeString(name);
+        dest.writeString(username);
+        dest.writeString(uid);
+        dest.writeString(postUri);
+        dest.writeString(title);
+        dest.writeString(desc);
+        dest.writeString(pem);
+        dest.writeString(umur);
+        dest.writeString(time);
+        dest.writeString(type);
+        dest.writeByte((byte) (approved ? 1 : 0));
+        dest.writeByte((byte) (checked ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<PostMember> CREATOR = new Creator<PostMember>() {
@@ -53,13 +87,68 @@ public class PostMember implements Parcelable {
     }
 
     @Exclude
+    public String getPostTitle() {
+        return !Helper.isNullOrBlank(title) ? title : "Untitled";
+    }
+
+    @Exclude
+    public String getTitleName(Context context) {
+        return String.format(Helper.getLocale(), context.getString(R.string.name_template), getFullName(), getFullUsername());
+    }
+
+    @Exclude
     public String getFullUsername() {
-        return !Helper.isNullOrBlank(username) ? username : "Tanpa username";
+        return !Helper.isNullOrBlank(username) ? username : "No username";
     }
 
     @Exclude
     public String getFullName() {
-        return !Helper.isNullOrBlank(name) ? name : "Tanpa nama";
+        return !Helper.isNullOrBlank(name) ? name : "No name";
+    }
+
+    // NOTE: Setelah 20 kata atau 80 huruf, potong deskripsinya.
+    @Exclude
+    public String getShortDescription() {
+        String[] splitDesc = desc.split(" ");
+        if (splitDesc.length > WORD_LIMIT) {
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < WORD_LIMIT; i++) {
+                builder.append(splitDesc[i]);
+                if (i != WORD_LIMIT - 1) {
+                    builder.append(" ");
+                }
+            }
+            builder.append("...");
+            return builder.toString();
+        } else if (desc.length() > CHARACTER_LIMIT) {
+            return desc.substring(0, CHARACTER_LIMIT) + "...";
+        } else {
+            return desc;
+        }
+    }
+
+    @Exclude
+    public String getCategory(Context context) {
+        return String.format(Helper.getLocale(), context.getString(R.string.category_template), pem, umur);
+    }
+
+    @Exclude
+    public String getStatus(Context context) {
+        String status;
+        if (checked && approved) {
+            status = APPROVED;
+        } else if (checked) {
+            status = REJECTED;
+        } else {
+            status = WAITING_FOR_APPROVAL;
+        }
+
+        return String.format(Helper.getLocale(), context.getString(R.string.status_template), status);
+    }
+
+    @Exclude
+    public boolean isNotCheckedOrApproved() {
+        return !isChecked() || !isApproved();
     }
 
     public String getId() {
@@ -126,6 +215,14 @@ public class PostMember implements Parcelable {
         this.type = type;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDesc() {
         return desc;
     }
@@ -150,22 +247,11 @@ public class PostMember implements Parcelable {
         this.umur = umur;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public boolean isChecked() {
+        return checked;
     }
 
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
-        parcel.writeString(name);
-        parcel.writeString(username);
-        parcel.writeString(postUri);
-        parcel.writeString(time);
-        parcel.writeString(uid);
-        parcel.writeString(type);
-        parcel.writeString(desc);
-        parcel.writeString(pem);
-        parcel.writeString(umur);
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 }

@@ -34,7 +34,7 @@ public class HomeFragment extends Fragment {
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseUser currentUser = auth.getCurrentUser();
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private final CollectionReference reference = database.collection(ReferenceConstant.ALL_IMAGES);
+    private final CollectionReference postReference = database.collection(ReferenceConstant.ALL_POSTS);
     private PostAdapter adapter;
 
     private SwipeRefreshLayout swipeLayout;
@@ -58,15 +58,24 @@ public class HomeFragment extends Fragment {
         ImageView btnMath = view.findViewById(R.id.math);
         ImageView btnLanguage = view.findViewById(R.id.language);
         ImageView btnSensorial = view.findViewById(R.id.sensorial);
+        ImageView btnMini = view.findViewById(R.id.mini);
+        ImageView btnSmall = view.findViewById(R.id.kecil);
+        ImageView btnMedium = view.findViewById(R.id.sedang);
+        ImageView btnLarge = view.findViewById(R.id.besar);
         ImageButton btnSearch = view.findViewById(R.id.ib_search);
 
         swipeLayout.setOnRefreshListener(() -> loadData());
         rvPost.setLayoutManager(new LinearLayoutManager(requireContext()));
 
-        btnPractical.setOnClickListener(v -> Helper.Category(Constants.CATEGORY_PRACTICAL, requireActivity()));
-        btnMath.setOnClickListener(v -> Helper.Category(Constants.CATEGORY_MATH, requireActivity()));
-        btnLanguage.setOnClickListener(v -> Helper.Category(Constants.CATEGORY_LANGUAGE, requireActivity()));
-        btnSensorial.setOnClickListener(v -> Helper.Category(Constants.CATEGORY_SENSORIAL, requireActivity()));
+        btnPractical.setOnClickListener(v -> Helper.openCategoryPage(requireActivity(), Constants.CATEGORY_PRACTICAL, true));
+        btnMath.setOnClickListener(v -> Helper.openCategoryPage(requireActivity(), Constants.CATEGORY_MATH, true));
+        btnLanguage.setOnClickListener(v -> Helper.openCategoryPage(requireActivity(), Constants.CATEGORY_LANGUAGE, true));
+        btnSensorial.setOnClickListener(v -> Helper.openCategoryPage(requireActivity(), Constants.CATEGORY_SENSORIAL, true));
+
+        btnMini.setOnClickListener(v -> Helper.openCategoryPage(requireActivity(), Constants.CATEGORY_PRESCHOOL, false));
+        btnSmall.setOnClickListener(v -> Helper.openCategoryPage(requireActivity(), Constants.CATEGORY_JUNIOR, false));
+        btnMedium.setOnClickListener(v -> Helper.openCategoryPage(requireActivity(), Constants.CATEGORY_HIGH_SCHOOL, false));
+        btnLarge.setOnClickListener(v -> Helper.openCategoryPage(requireActivity(), Constants.CATEGORY_ADULT, false));
 
         btnSearch.setOnClickListener(v -> {
             Intent intent = new Intent(requireActivity(), SearchActivity.class);
@@ -82,7 +91,7 @@ public class HomeFragment extends Fragment {
 
     private void loadData() {
         if (currentUser != null) {
-            reference.whereNotEqualTo(Constants.UID_FIELD, currentUser.getUid()).addSnapshotListener((value, error) -> {
+            postReference.whereEqualTo(Constants.APPROVED_FIELD, true).whereNotEqualTo(Constants.UID_FIELD, currentUser.getUid()).addSnapshotListener((value, error) -> {
                 if (value != null) {
                     ArrayList<PostMember> posts = new ArrayList<>();
                     for (DocumentSnapshot document : value.getDocuments()) {

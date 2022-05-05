@@ -16,17 +16,18 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.montessori.R;
 import com.example.montessori.model.PostMember;
-import com.example.montessori.ui.user.PostDetailActivity;
+import com.example.montessori.ui.admin.AdminApprovalActivity;
 import com.example.montessori.util.IntentNameExtra;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
+
+public class PostApprovalAdapter extends RecyclerView.Adapter<PostApprovalAdapter.ViewHolder> {
     private final Context context;
     private final ArrayList<PostMember> list = new ArrayList<>();
 
-    public PostAdapter(Context context) {
+    public PostApprovalAdapter(Context context) {
         this.context = context;
     }
 
@@ -40,7 +41,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_post_admin, parent, false);
         return new ViewHolder(v);
     }
 
@@ -49,7 +50,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         PostMember data = list.get(position);
         holder.bind(data);
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = new Intent(context, PostDetailActivity.class);
+            Intent intent = new Intent(context, AdminApprovalActivity.class);
             intent.putExtra(IntentNameExtra.POST_DATA, data);
             context.startActivity(intent);
         });
@@ -61,30 +62,33 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        private final TextView tvName;
-        private final TextView tvCategory;
         private final ImageView ivPost;
-        private final TextView tvTitle;
+        private final TextView tvPem;
+        private final TextView tvUmur;
         private final TextView tvDesc;
+        private final TextView tvUsername;
+        private final TextView tvName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvName = itemView.findViewById(R.id.tvName);
-            tvCategory = itemView.findViewById(R.id.tvCategory);
             ivPost = itemView.findViewById(R.id.ivPost);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
+            tvUsername = itemView.findViewById(R.id.tv_username);
+            tvName = itemView.findViewById(R.id.tv_name);
             tvDesc = itemView.findViewById(R.id.tvDesc);
+            tvPem = itemView.findViewById(R.id.tvPem);
+            tvUmur = itemView.findViewById(R.id.tvUmur);
         }
 
         public void bind(PostMember item) {
-            tvName.setText(item.getFullName());
-            tvCategory.setText(item.getCategory(tvCategory.getContext()));
             Glide.with(ivPost)
                     .applyDefaultRequestOptions(RequestOptions.centerCropTransform())
                     .load(item.getPostUri())
                     .into(ivPost);
-            tvTitle.setText(item.getPostTitle());
-            tvDesc.setText(item.getShortDescription());
+            tvUsername.setText(item.getFullUsername());
+            tvName.setText(item.getFullName());
+            tvDesc.setText(item.getDesc());
+            tvPem.setText(item.getPem());
+            tvUmur.setText(item.getUmur());
         }
     }
 }
