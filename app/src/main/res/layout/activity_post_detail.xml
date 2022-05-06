@@ -258,6 +258,13 @@
                             android:textStyle="bold"
                             app:drawableEndCompat="@drawable/ic_more" />
 
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvComment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/default_margin"
+                            android:visibility="gone" />
+
                         <LinearLayout
                             android:id="@+id/btnComment"
                             android:layout_width="match_parent"

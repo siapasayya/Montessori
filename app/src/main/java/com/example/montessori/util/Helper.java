@@ -13,7 +13,9 @@ import com.example.montessori.ui.user.UserDashboardActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class Helper {
@@ -66,5 +68,13 @@ public class Helper {
         } else {
             return String.format(getLocale(), context.getString(R.string.total_likes_template), total);
         }
+    }
+
+    public static <T> List<T> getLastItem(List<T> list) {
+        ArrayList<T> newList = new ArrayList<>();
+        if (!list.isEmpty()) {
+            newList.add(list.get(list.size() - 1));
+        }
+        return newList;
     }
 }

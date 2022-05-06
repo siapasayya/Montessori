@@ -37,6 +37,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class PostActivity extends AppCompatActivity {
     private static final int PICK_FILE = 1;
@@ -44,8 +45,10 @@ public class PostActivity extends AppCompatActivity {
     private final FirebaseAuth auth = FirebaseAuth.getInstance();
     private final FirebaseUser currentUser = auth.getCurrentUser();
     private final FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private final CollectionReference postDatabase = database.collection(ReferenceConstant.ALL_POSTS);
-    private final CollectionReference userDatabase = database.collection(ReferenceConstant.USERS);
+    private final CollectionReference postReference = database.collection(ReferenceConstant.ALL_POSTS);
+    private final CollectionReference likeReference = database.collection(ReferenceConstant.LIKE);
+    private final CollectionReference commentReference = database.collection(ReferenceConstant.COMMENTS);
+    private final CollectionReference userReference = database.collection(ReferenceConstant.USERS);
     private final StorageReference storageReference = FirebaseStorage.getInstance().getReference(ReferenceConstant.USER_POSTS);
 
     private ImageView imagePreview;
@@ -141,11 +144,12 @@ public class PostActivity extends AppCompatActivity {
                     if (!Helper.isNullOrBlank(post.getType()) && post.getType().equals(Constants.IMAGE_TYPE)) {
                         post.setPostUri(downloadUrl.toString());
 
-                        postDatabase.document(post.getId()).set(post);
+                        postReference.document(post.getId()).set(post);
+                        likeReference.document(post.getId()).set(new HashMap<String, Object>());
+                        commentReference.document(post.getId()).set(new HashMap<String, Object>());
 
                         Toast.makeText(PostActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
                         finish();
-
                     } else {
                         Toast.makeText(PostActivity.this, "Error: Unknown Type", Toast.LENGTH_SHORT).show();
                     }
@@ -158,9 +162,9 @@ public class PostActivity extends AppCompatActivity {
 
     private void loadData() {
         if (currentUser != null) {
-            userDatabase.document(currentUser.getUid()).addSnapshotListener((value, error) -> {
-                if (value != null && value.exists()) {
-                    User data = value.toObject(User.class);
+            userReference.document(currentUser.getUid()).get().addOnCompleteListener(task -> {
+                if (task.getResult() != null && task.getResult().exists()) {
+                    User data = task.getResult().toObject(User.class);
                     if (data != null) {
                         userData = data;
                     }

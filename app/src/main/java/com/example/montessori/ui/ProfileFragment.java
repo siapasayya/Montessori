@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,13 +64,21 @@ public class ProfileFragment extends Fragment {
 
         ImageButton btnLogout = view.findViewById(R.id.ib_logout);
 
-        btnLogout.setOnClickListener(v -> Helper.doLogout(requireActivity()));
-
+        btnLogout.setOnClickListener(v -> showAlertDialog());
         adapter = new PostProfileAdapter(requireContext());
 
         swipeLayout.setOnRefreshListener(() -> loadData());
 
         rvPost.setLayoutManager(new LinearLayoutManager(requireContext()));
+    }
+
+    private void showAlertDialog() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(requireContext());
+        alert.setMessage("Do you want to logout?");
+        alert.setPositiveButton("Yes", (dialogInterface, i) -> Helper.doLogout(requireActivity()));
+        alert.setNegativeButton("No", (dialogInterface, i) -> {
+        });
+        alert.create().show();
     }
 
     @Override
